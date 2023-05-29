@@ -1,0 +1,8 @@
+.nt-footer {
+    background-color: var(--nt-darkblue);
+    color: #FFF;
+}
+
+.nt-footer .footer-copyright {
+    background-color: var(--nt-lightblue);
+}

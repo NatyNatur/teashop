@@ -2,7 +2,7 @@
     --nt-primary: #0e2a39;
     --nt-darkblue:#0e2a39;
     --nt-lightblue: #184862;
-    --nt-brand: #AC53C9;
+    --nt-brand: #a558c8;
     --nt-lightbrand: #ba7ed5;
     --nt-info: #a457c8;
     --nt-success: #398749;
@@ -13,4 +13,14 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+}
+
+.ntContainer {
+    min-height: calc(100vh - 73px - 340px);
+}
+
+@media screen and (min-width: 992px) {
+    .ntContainer {
+        min-height: calc(100vh - 95px - 220px);
+    }
 }
