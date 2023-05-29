@@ -1,7 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { LoginComponent } from './pages/login/login.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'inicio',
+    title: 'naturtea',
+    component: HomeComponent
+  },
+  {
+    path: 'bienvenido',
+    title: 'Bienvenido a naturtea',
+    component: WelcomeComponent
+  },
+  {
+    path: 'registro',
+    title: 'Regístrate',
+    component: SignupComponent
+  },
+  {
+    path: 'ingresa',
+    title: 'Ingresa',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    redirectTo: 'inicio',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'inicio',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

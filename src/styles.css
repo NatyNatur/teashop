@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --nt-primary: #0e2a39;
+    --nt-darkblue:#0e2a39;
+    --nt-lightblue: #184862;
+    --nt-brand: #AC53C9;
+    --nt-lightbrand: #ba7ed5;
+    --nt-info: #a457c8;
+    --nt-success: #398749;
+    --nt-warning: #b77711;
+    --nt-danger: #f44336;
+    --nt-black: #040c10;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
