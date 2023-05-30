@@ -1,26 +1,115 @@
 :root {
-    --nt-primary: #0e2a39;
-    --nt-darkblue:#0e2a39;
-    --nt-lightblue: #184862;
-    --nt-brand: #a558c8;
-    --nt-lightbrand: #ba7ed5;
-    --nt-info: #a457c8;
-    --nt-success: #398749;
-    --nt-warning: #b77711;
-    --nt-danger: #f44336;
-    --nt-black: #040c10;
+  --nt-primary: #0e2a39;
+  --nt-darkblue: #0e2a39;
+  --nt-lightblue: #184862;
+  --nt-brand: #a558c8;
+  --nt-darkbrand: #8446a0;
+  --nt-lightbrand: #ba7ed5;
+  --nt-info: #a457c8;
+  --nt-success: #398749;
+  --nt-warning: #b77711;
+  --nt-danger: #f44336;
+  --nt-black: #040c10;
+  --nt-white: #fff;
+  --nt-lightgray: #9baebc;
+  --nt-gray: #677987;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .ntContainer {
-    min-height: calc(100vh - 73px - 340px);
+  min-height: calc(100vh - 73px - 340px);
+}
+
+.ff-vollkorn {
+  font-family: "Vollkorn", serif;
+}
+
+.ff-poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-nt-darkprimary {
+  --bs-btn-color: var(--nt-white);
+  --bs-btn-bg: var(--nt-darkblue);
+  --bs-btn-border-color: var(--nt-darkblue);
+  --bs-btn-hover-color: var(--nt-white);
+  --bs-btn-hover-bg: var(--nt-lightblue);
+  --bs-btn-hover-border-color: var(--nt-lightblue);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: var(--nt-white);
+  --bs-btn-active-bg: var(--nt-darkblue);
+  --bs-btn-active-border-color: var(--nt-darkblue);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--nt-lightgray);
+  --bs-btn-disabled-bg: var(--nt-gray);
+  --bs-btn-disabled-border-color: var(--nt-gray);
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-nt-primary {
+  --bs-btn-color: var(--nt-white);
+  --bs-btn-bg: var(--nt-lightblue);
+  --bs-btn-border-color: var(--nt-lightblue);
+  --bs-btn-hover-color: var(--nt-white);
+  --bs-btn-hover-bg: var(--nt-darkblue);
+  --bs-btn-hover-border-color: var(--nt-darkblue);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: var(--nt-white);
+  --bs-btn-active-bg: var(--nt-lightblue);
+  --bs-btn-active-border-color: var(--nt-lightblue);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--nt-lightgray);
+  --bs-btn-disabled-bg: var(--nt-gray);
+  --bs-btn-disabled-border-color: var(--nt-gray);
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--nt-lightblue);
+}
+
+.form-check-input:checked {
+  background-color: var(--nt-brand);
+  border-color: var(--nt-brand);
+}
+
+.form-check-input:focus {
+  box-shadow: none;
+  border-color: var(--nt-lightblue);
+}
+
+.messageContainer {
+  min-height: 3rem;
+  display: block;
+}
+
+.ls-3 {
+  letter-spacing: 0.3em;
+}
+
+.fc-brand {
+  color: var(--nt-brand);
+}
+
+a.fc-brand:hover {
+  color: var(--nt-darkbrand);
 }
 
 @media screen and (min-width: 992px) {
-    .ntContainer {
-        min-height: calc(100vh - 95px - 220px);
-    }
+  .ntContainer {
+    min-height: calc(100vh - 95px - 220px);
+  }
+
+  .messageContainer {
+    min-height: 1.7rem;
+    display: block;
+  }
 }

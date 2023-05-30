@@ -1,1 +1,74 @@
-<p>signup works!</p>
+<div class="container-fluid ntContainer">
+    <div class="row justify-content-center align-content-center ff-vollkorn pt-0 pt-lg-5">
+        <div class="col-11 col-md-6 col-lg-6 col-xl-4 p-3  animate__animated animate__fadeInRight">
+            <form class="row" (ngSubmit)="onSubmitSignUp(signUpForm)" #signUpForm="ngForm" id="signUpForm">
+                <h4 class="text-center ls-3 mb-4 fw-bold text-uppercase">Regístrate en naturtea</h4>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupName" class="form-label">Nombre</label>
+                    <input type="text" [(ngModel)]="user.nombre" minlength="2" name="nombre" required
+                        class="form-control" id="ntSignupName" placeholder="Juanita">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['nombre'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu nombre.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupLastname" class="form-label">Apellido</label>
+                    <input type="text" [(ngModel)]="user.apellido" minlength="2" name="apellido" required
+                        class="form-control" id="ntSignupLastname" placeholder="Pérez-Cotapos">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['apellido'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu apellido.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupEmail" class="form-label">Correo electrónico </label>
+                    <input type="email" [(ngModel)]="user.email" name="email" required email class="form-control"
+                        id="ntSignupEmail" placeholder="juanitapc@lala.com">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['email'].errors"
+                            class="text-danger animate__animated animate__fadeIn">El correo es obligatorio.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupPassword" class="form-label">Contraseña</label>
+                    <input type="password" [(ngModel)]="user.password" minlength="6" required name="password"
+                        autocomplete="off" class="form-control" id="ntSignupPassword" placeholder="******">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['password'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Deben ser más de 6
+                            caracteres.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupAddres" class="form-label">Dirección</label>
+                    <input type="text" [(ngModel)]="user.direccion" minlength="6" name="direccion" required
+                        class="form-control" id="ntSignupAddres" placeholder="Avenida Falsa 123">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['direccion'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu dirección.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupCommune" class="form-label">Comuna</label>
+                    <input type="text" [(ngModel)]="user.comuna" name="comuna" required class="form-control"
+                        id="ntSignupCommune" placeholder="Springfield">
+                    <span class="messageContainer">
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['comuna'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu comuna.</span>
+                    </span>
+                </div>
+                <div class="mb-3 form-check ms-3">
+                    <input [(ngModel)]="rememberNewUser" name="rememberNewUser" type="checkbox" class="form-check-input"
+                        id="ntLoginRemember">
+                    <label class="form-check-label" for="ntLoginRemember">Recordar mi usuario</label>
+                </div>
+                <button type="submit" class="btn btn-nt-primary w-100">Registrar</button>
+            </form>
+            <div class="mt-5">
+                <h5 class="text-center">¿Ya tienes cuenta? <a routerLink="/ingresa"
+                        class="text-decoration-none fc-brand fw-bold">Inicia sesión</a></h5>
+            </div>
+        </div>
+    </div>
+</div>

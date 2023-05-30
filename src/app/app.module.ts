@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
+import { environment } from 'src/environments/environment';
+
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth } from '@angular/fire/auth';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,15 +39,22 @@ import { HomeComponent } from './pages/home/home.component';
     SignupComponent,
     WelcomeComponent,
     NotFoundComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
     CollapseModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    ToastrModule.forRoot(), 
   ],
   providers: [],
   bootstrap: [AppComponent]

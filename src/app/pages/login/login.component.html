@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="container-fluid ntContainer">
+    <div class="row justify-content-center align-content-center ff-vollkorn pt-0 pt-lg-5">
+        <div class="col-11 col-md-6 col-lg-6 col-xl-4 p-3  animate__animated animate__fadeInLeft">
+            <form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm" id="loginForm">
+                <h4 class="text-center ls-3 mb-4 fw-bold text-uppercase">Ingresa a naturtea</h4>
+                <div class="mb-lg-2">
+                    <label for="ntLoginEmail" class="form-label">Correo electrónico </label>
+                    <input type="email" class="form-control" [(ngModel)]="registeredUser.email" required email
+                        id="ntLoginEmail" name="email" placeholder="lala@lala.com">
+                    <span class="messageContainer">
+                        <span *ngIf="loginForm.submitted && loginForm.controls['email'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Recuerda ingresar tu email.</span>
+                    </span>
+                </div>
+                <div class="mb-lg-2">
+                    <label for="ntLoginPassword" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" [(ngModel)]="registeredUser.password" required
+                        minlength="6" id="ntLoginPassword" name="password" autocomplete="off" placeholder="******">
+                    <span class="messageContainer">
+                        <span *ngIf="loginForm.submitted && loginForm.controls['password'].errors"
+                            class="text-danger animate__animated animate__fadeIn">Recuerda que la contraseña debe ser de
+                            más de 6 caracteres.</span>
+                    </span>
+                </div>
+                <div class="mb-3 form-check col-12 col-md-6">
+                    <input [(ngModel)]="rememberUser" name="rememberUser" type="checkbox" class="form-check-input"
+                        id="ntLoginRemember">
+                    <label class="form-check-label" for="ntLoginRemember">Recordar mi usuario</label>
+                </div>
+                <button type="submit" class="btn btn-nt-primary w-100">Ingresar</button>
+            </form>
+            <div class="mt-5">
+                <h5 class="text-center">¿Eres nuevo en la tienda?
+                    <a routerLink="/registro" class="text-decoration-none fc-brand fw-bold">Regístrate</a>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>

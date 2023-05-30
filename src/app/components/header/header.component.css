@@ -1,12 +1,6 @@
-.bg-nt {
-    background-color: var(--nt-darkblue);
-    color: #FFF;
+header {
+    font-family: 'Vollkorn', serif;
 }
-
-.bg-nt a {
-    color: #FFF;
-}
-
 .navIcons {
     padding-left: 1rem;
     margin-top: 1rem;

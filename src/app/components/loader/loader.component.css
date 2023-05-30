@@ -1,0 +1,49 @@
+.loaderContainer {
+  position: fixed;
+  background-color: #9052b229;
+  height: 100%;
+  width: 100%;
+  cursor: progress;
+  z-index: 9000;
+}
+.wrapper {
+  width: 120px;
+  height: 120px;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid var(--nt-brand);
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.wrapper {
+  background: url("../../../assets/img/logo/tacita-azul.png") no-repeat;
+  background-size: 60%;
+  background-position: center;
+  position: absolute;
+  top: calc(45% - 40px);
+  left: calc(50% - 60px);
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -9,22 +9,22 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 const routes: Routes = [
   {
     path: 'inicio',
-    title: 'naturtea',
+    title: 'Bienvenido a naturtea',
     component: HomeComponent
   },
   {
     path: 'bienvenido',
-    title: 'Bienvenido a naturtea',
+    title: 'naturtea',
     component: WelcomeComponent
   },
   {
     path: 'registro',
-    title: 'Regístrate',
+    title: 'Regístrate en naturtea',
     component: SignupComponent
   },
   {
     path: 'ingresa',
-    title: 'Ingresa',
+    title: 'Ingresa a naturtea',
     component: LoginComponent
   },
   {
