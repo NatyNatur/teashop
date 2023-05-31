@@ -71,6 +71,86 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.btn-nt-secondary {
+  --bs-btn-color: var(--nt-white);
+  --bs-btn-bg: var(--nt-gray);
+  --bs-btn-border-color: var(--nt-gray);
+  --bs-btn-hover-color: var(--nt-white);
+  --bs-btn-hover-bg: var(--nt-lightgray);
+  --bs-btn-hover-border-color: var(--nt-lightgray);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: var(--nt-white);
+  --bs-btn-active-bg: var(--nt-gray);
+  --bs-btn-active-border-color: var(--nt-gray);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--nt-lightgray);
+  --bs-btn-disabled-bg: var(--nt-gray);
+  --bs-btn-disabled-border-color: var(--nt-gray);
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-nt-brand {
+  --bs-btn-color: var(--nt-white);
+  --bs-btn-bg: var(--nt-brand);
+  --bs-btn-border-color: var(--nt-brand);
+  --bs-btn-hover-color: var(--nt-white);
+  --bs-btn-hover-bg: var(--nt-darkbrand);
+  --bs-btn-hover-border-color: var(--nt-darkbrand);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: var(--nt-white);
+  --bs-btn-active-bg: var(--nt-brand);
+  --bs-btn-active-border-color: var(--nt-brand);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--nt-lightgray);
+  --bs-btn-disabled-bg: var(--nt-gray);
+  --bs-btn-disabled-border-color: var(--nt-gray);
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-warning {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #e09215;
+  --bs-btn-border-color: #e09215;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #b77711;
+  --bs-btn-hover-border-color: #b77711;
+  --bs-btn-focus-shadow-rgb: 217, 164, 6;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #e09215;
+  --bs-btn-active-border-color: #e09215;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #e09215;
+  --bs-btn-disabled-border-color: #e09215;
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-danger {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #f44336;
+  --bs-btn-border-color: #f44336;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #f32516;
+  --bs-btn-hover-border-color: #f32516;
+  --bs-btn-focus-shadow-rgb: 225, 83, 97;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #f44336;
+  --bs-btn-active-border-color: #f44336;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #dc3545;
+  --bs-btn-disabled-border-color: #dc3545;
+  text-transform: lowercase;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
 .form-control:focus {
   box-shadow: none;
   border-color: var(--nt-lightblue);
@@ -93,6 +173,10 @@ body {
 
 .ls-3 {
   letter-spacing: 0.3em;
+}
+
+.fc-darkblue {
+  color: var(--nt-darkblue);
 }
 
 .fc-brand {

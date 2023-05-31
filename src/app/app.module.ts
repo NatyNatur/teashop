@@ -28,6 +28,11 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ProductsComponent } from './pages/admin/products/products.component';
+import { CategoriesComponent } from './pages/admin/categories/categories.component';
+import { GeneralComponent } from './pages/admin/general/general.component';
+import { OrdersComponent } from './pages/admin/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,11 @@ import { HomeComponent } from './pages/home/home.component';
     WelcomeComponent,
     NotFoundComponent,
     HomeComponent,
+    AdminComponent,
+    ProductsComponent,
+    CategoriesComponent,
+    GeneralComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,

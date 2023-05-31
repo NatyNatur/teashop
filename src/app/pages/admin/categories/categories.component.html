@@ -1,0 +1,318 @@
+<div class="container-fluid">
+    <div class="row rowAdminBg p-3">
+        <div class="col-8">
+            <h4>Categorías</h4>
+        </div>
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-nt-primary" (click)="newCategoryModal.show()">
+                <span class="d-lg-none"><i class="bi bi-plus-circle fs-6"></i></span>
+                <span class="d-none d-lg-inline-block">crear categoría</span>
+            </button>
+        </div>
+        <div class="col-12 p-3">
+            <div class="table-responsive ntFixedTable">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col" class="text-center">Estado</th>
+                            <th scope="col" class="text-center colActions">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <ng-container *ngFor="let category of categoriesList; let i = index">
+                        <tr colspan="3">
+                            <td><span class="fs-18p">{{category?.category_name}}</span></td>
+                            <td class="text-center">
+                                <div class="d-lg-none">
+                                    <div *ngIf="category?.category_status == 'active'; else eyeInactive"><i
+                                            class="bi bi-check-circle-fill fc-darkblue fs-5"></i></div>
+                                    <ng-template #eyeInactive><i class="bi bi-x-circle fc-darkblue fs-5"></i></ng-template>
+                                </div>
+                                <div class="d-none d-lg-block">
+                                    <span *ngIf="category?.category_status == 'active'; else textInactive">Activa</span>
+                                    <ng-template #textInactive>Inactiva</ng-template>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <button type="button"
+                                        (click)="showEditCategoryModal(category?.category_name, category?.category_id, category?.category_status)"
+                                        class="btn btn-sm btn-warning d-flex align-items-center"><i
+                                            class="bi bi-pencil-square fs-5"></i> <span
+                                            class="fw-semibold ps-1 d-none d-lg-inline-block">Editar</span></button>
+                                    <button type="button"
+                                        (click)="showDeleteCategoryModal(category?.category_name, category?.category_id)"
+                                        class="btn btn-sm btn-danger d-flex align-items-center"> <i
+                                            class="bi bi-trash3 fs-5"></i> <span
+                                            class="fw-semibold ps-1 d-none d-lg-inline-block">Eliminar</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <ng-container *ngIf="category.subcategories.length > 0">
+                        <tr *ngFor="let subcategory of category.subcategories; let j = index;">
+                            <td> <span> <i class="bi bi-arrow-return-right fs-5 ms-1 ms-lg-5"></i></span> {{subcategory?.subcategory_name}}</td>
+                            <td class="text-center">
+                                <div class="d-lg-none">
+                                    <div *ngIf="subcategory?.subcategory_status == 'active'; else eyeInactive2">
+                                        <i class="bi bi-check-circle-fill fc-darkblue fs-5"></i>
+                                    </div>
+                                    <ng-template #eyeInactive2><i class="bi bi-x-circle fc-darkblue fs-5"></i></ng-template>
+                                </div>
+                                <div class="d-none d-lg-block">
+                                    <span
+                                        *ngIf="subcategory?.subcategory_status == 'active'; else textInactive2">Activa</span>
+                                    <ng-template #textInactive2>Inactiva</ng-template>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <button type="button"
+                                        (click)="showEditSubcategoryModal(category, subcategory.subcategory_id, subcategory.subcategory_name, subcategory.subcategory_status)"
+                                        class="btn btn-sm btn-warning d-flex align-items-center"><i
+                                            class="bi bi-pencil-square fs-5"></i> <span
+                                            class="fw-semibold ps-1 d-none d-lg-inline-block">Editar</span></button>
+                                    <button type="button"
+                                        (click)="showDeleteSubcategoryModal(subcategory?.subcategory_name, category?.category_id, subcategory?.subcategory_id)"
+                                        class="btn btn-sm btn-danger d-flex align-items-center"> <i
+                                            class="bi bi-trash3 fs-5"></i> <span
+                                            class="fw-semibold ps-1 d-none d-lg-inline-block">Eliminar</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- newCategoryModal -->
+<div class="modal fade" bsModal #newCategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addCategoryModalLabel">Agregar Categoría</h4>
+                <button type="button" class="btn-close"
+                    (click)="newCategoryModal.hide(); resetForm(categoryForm)" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmitCategory(categoryForm)" #categoryForm="ngForm" id="categoryForm"
+                    class="pt-3 px-3">
+                    <div>
+                        <label for="ntAddCategory" class="form-label">Nombre categoría:</label>
+                        <input type="text" class="form-control" [(ngModel)]="newCategory.category_name" minlength="6"
+                            required id="ntAddCategory" name="category_name" placeholder="Accesorios">
+                        <span class="messageContainer">
+                            <span *ngIf="categoryForm.submitted && categoryForm.controls['category_name'].errors"
+                                class="text-danger animate__animated animate__fadeIn">Recuerda ingresar un nombre
+                                descriptivo.</span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="newCategoryModal.hide(); resetForm(categoryForm)">Cancelar</button>
+                <button type="submit" form="categoryForm" class="btn btn-nt-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- deleteCategoryModal -->
+<div class="modal fade" bsModal #deleteCategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title text-center" id="deleteCategoryLabel">¿Seguro que deseas eliminar la
+                    categoría <span class="fc-brand fw-bold"> {{categoryName}}? </span></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="deleteCategoryModal.hide()">Cancelar</button>
+                <button type="submit" class="btn btn-nt-primary" (click)="deleteCategory(categoryId)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- editCategoryModal -->
+<div class="modal fade" bsModal #editCategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editCategoryModalLabel">Editar Categoría</h4>
+                <button type="button" class="btn-close" (click)="editCategoryModal.hide()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmitUpdateCategory(editCategoryForm)" #editCategoryForm="ngForm"
+                    id="editCategoryForm" class="pt-3 px-3 mb-3">
+                    <div>
+                        <label for="ntEditCategory" class="form-label">Nombre categoría:</label>
+                        <input type="text" class="form-control" [(ngModel)]="category.category_name" minlength="6"
+                            required id="ntEditCategory" name="category_name" placeholder="Accesorios">
+                        <span class="messageContainer">
+                            <span
+                                *ngIf="editCategoryForm.submitted && editCategoryForm.controls['category_name'].errors"
+                                class="text-danger animate__animated animate__fadeIn">Recuerda ingresar un nombre
+                                descriptivo.</span>
+                        </span>
+                    </div>
+                    <label for="status" class="form-label d-block">Estado:</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="statusActive"
+                            [(ngModel)]="category.category_status" value="active">
+                        <label class="form-check-label" for="status">
+                            Activa
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="statusInactive"
+                            [(ngModel)]="category.category_status" value="inactive">
+                        <label class="form-check-label" for="status">
+                            Inactiva
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary" (click)="editCategoryModal.hide()">Cancelar</button>
+                <button type="button" class="btn btn-nt-brand" (click)="showNewSubcategory(category)">Agregar subcategoría</button>
+                <button type="submit" form="editCategoryForm" class="btn btn-nt-primary">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- newSubcategoryModal -->
+<div class="modal fade" bsModal #newSubcategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addSubCategoryModalLabel">Agregar Subcategoría</h4>
+                <button type="button" class="btn-close"
+                    (click)="newSubcategoryModal.hide(); resetForm(subcategoryForm)"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmitSubcategory(subcategoryForm)" #subcategoryForm="ngForm" id="subcategoryForm"
+                    class="pt-3 px-3">
+                    <div class="visually-hidden">
+                        <input type="text" class="form-control" disabled readonly
+                            [(ngModel)]="newSubcategory.category_id" required name="category_id" placeholder="id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ntAddSubCategoryCat" class="form-label">Nombre categoría:</label>
+                        <input type="text" class="form-control" disabled readonly
+                            [(ngModel)]="newSubcategory.category_name" minlength="6" required id="ntAddSubCategoryCat"
+                            name="category_name" placeholder="Accesorios">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ntAddSubCategory" class="form-label">Nombre subcategoría:</label>
+                        <input type="text" class="form-control" [(ngModel)]="newSubcategory.subcategory_name"
+                            minlength="1" required id="ntAddSubCategory" name="subcategory_name" placeholder="Colador">
+                        <span class="messageContainer">
+                            <span
+                                *ngIf="subcategoryForm.submitted && subcategoryForm.controls['subcategory_name'].errors"
+                                class="text-danger animate__animated animate__fadeIn">Recuerda ingresar un nombre
+                                descriptivo.</span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="newSubcategoryModal.hide(); resetForm(categoryForm)">Cancelar</button>
+                <button type="submit" form="subcategoryForm" class="btn btn-nt-brand">Crear subcategoría</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- editSubcategoryModal -->
+<div class="modal fade" bsModal #editSubcategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editSubcategoryModalLabel">Editar Subcategoría</h4>
+                <button type="button" class="btn-close"
+                    (click)="editSubcategoryModal.hide(); resetForm(editSubcategoryForm)"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmitUpdateSubcategory(editSubcategoryForm)" #editSubcategoryForm="ngForm" id="editSubcategoryForm"
+                    class="pt-3 px-3">
+                    <div class="visually-hidden">
+                        <input type="text" class="form-control" disabled readonly
+                            [(ngModel)]="subcategory.category_id" required name="category_id" placeholder="id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ntEditSubCategoryCat" class="form-label">Nombre categoría:</label>
+                        <input type="text" class="form-control" disabled readonly
+                            [(ngModel)]="subcategory.category_name" minlength="6" required id="ntEditSubCategoryCat"
+                            name="category_name" placeholder="...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ntEditSubCategory" class="form-label">Nombre subcategoría:</label>
+                        <input type="text" class="form-control" [(ngModel)]="subcategory.subcategory_name"
+                            minlength="1" required id="ntEditSubCategory" name="subcategory_name" placeholder="Colador">
+                        <span class="messageContainer">
+                            <span
+                                *ngIf="editSubcategoryForm.submitted && editSubcategoryForm.controls['subcategory_name'].errors"
+                                class="text-danger animate__animated animate__fadeIn">Recuerda ingresar un nombre
+                                descriptivo.</span>
+                        </span>
+                    </div>
+                    <label for="status" class="form-label d-block">Estado subcategoría:</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="statusActive2"
+                            [(ngModel)]="subcategory.subcategory_status" value="active">
+                        <label class="form-check-label" for="status">
+                            Activa
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="statusInactive2"
+                            [(ngModel)]="subcategory.subcategory_status" value="inactive">
+                        <label class="form-check-label" for="status">
+                            Inactiva
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="editSubcategoryModal.hide(); resetForm(categoryForm)">Cancelar</button>
+                <button type="submit" form="editSubcategoryForm" class="btn btn-nt-brand">Actualizar subcategoría</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- deleteSubcategoryModal -->
+<div class="modal fade" bsModal #deleteSubcategoryModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title text-center" id="deleteSubcategoryLabel">¿Seguro que deseas eliminar la
+                    subcategoría
+                    <span class="fc-brand fw-bold"> {{categoryName}}?</span></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="deleteSubcategoryModal.hide()">Cancelar</button>
+                <button type="submit" class="btn btn-nt-primary" (click)="deleteSubcategory(categoryId, subcategoryId)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

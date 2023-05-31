@@ -1,0 +1,44 @@
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: var(--nt-brand);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.fs-18p {
+    font-size: 18px;
+}
+
+.ntFixedTable {
+    overflow: auto;
+    height: 440px;
+    width: 100%;
+}
+
+.ntFixedTable .table {
+    border-collapse: unset;
+}
+
+.ntFixedTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #FFF;
+    box-shadow: inset 0px -2px #000;
+}
+
+.ntFixedTable tbody td {
+    position: sticky;
+    left: 0;
+}
+
+.ntFixedTable thead th.colActions {
+    width: 100px;
+}
+
+@media screen and (min-width: 992px) {
+    .ntFixedTable thead th.colActions {
+        width: 220px;
+    }
+}

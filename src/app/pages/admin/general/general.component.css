@@ -1,0 +1,21 @@
+.counter-box {
+    background-color: #DEC2EB;
+    color: var(--nt-darkblue);
+    padding: 20px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    /*border-left: 3px solid var(--ss-metallicbronze-color);*/
+    justify-content: space-around;
+}
+
+.counter-box .contrastColor {
+    color: var(--nt-lightblue);
+}
+
+.fa-3xl {
+    font-size: 3.3em;
+}

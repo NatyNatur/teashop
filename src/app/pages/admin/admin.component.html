@@ -1,0 +1,36 @@
+<div class="container-fluid ntContainer ff-vollkorn">
+    <div class="row">
+        <div class="col-12 col-lg-3 pt-4">
+            <div class="adminSidebar p-3 p-xl-5">
+                <div class="pb-3 pb-lg-5">
+                    <h3 class="text-light text-center fw-bold ff-poppins">Menú Administrador</h3>
+                </div>
+                <div class="adminNav">
+                    <ul class="nav flex-row flex-lg-column justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['general']" routerLinkActive="active">General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['categorias']" routerLinkActive="active">Categorías</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['productos']" routerLinkActive="active">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['pedidos']" routerLinkActive="active">Pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Historial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/home']" (click)="logOut()">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-9 pt-4">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
