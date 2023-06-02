@@ -20,9 +20,9 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <ng-container *ngFor="let category of categoriesList; let i = index">
+                        <ng-container *ngFor="let category of categoriesList; let i = index;">
                         <tr colspan="3">
-                            <td><span class="fs-18p">{{category?.category_name}}</span></td>
+                            <td><span class="fs-18p">{{category.category_name}}</span></td>
                             <td class="text-center">
                                 <div class="d-lg-none">
                                     <div *ngIf="category?.category_status == 'active'; else eyeInactive"><i
@@ -37,19 +37,19 @@
                             <td class="text-center">
                                 <div class="btn-group" role="group">
                                     <button type="button"
-                                        (click)="showEditCategoryModal(category?.category_name, category?.category_id, category?.category_status)"
+                                        (click)="showEditCategoryModal(category.category_name, category.category_id, category.category_status)"
                                         class="btn btn-sm btn-warning d-flex align-items-center"><i
                                             class="bi bi-pencil-square fs-5"></i> <span
                                             class="fw-semibold ps-1 d-none d-lg-inline-block">Editar</span></button>
                                     <button type="button"
-                                        (click)="showDeleteCategoryModal(category?.category_name, category?.category_id)"
+                                        (click)="showDeleteCategoryModal(category.category_name, category.category_id)"
                                         class="btn btn-sm btn-danger d-flex align-items-center"> <i
                                             class="bi bi-trash3 fs-5"></i> <span
                                             class="fw-semibold ps-1 d-none d-lg-inline-block">Eliminar</span></button>
                                 </div>
                             </td>
                         </tr>
-                        <ng-container *ngIf="category.subcategories.length > 0">
+                        <ng-container *ngIf="category.subcategories!.length > 0">
                         <tr *ngFor="let subcategory of category.subcategories; let j = index;">
                             <td> <span> <i class="bi bi-arrow-return-right fs-5 ms-1 ms-lg-5"></i></span> {{subcategory?.subcategory_name}}</td>
                             <td class="text-center">
@@ -73,7 +73,7 @@
                                             class="bi bi-pencil-square fs-5"></i> <span
                                             class="fw-semibold ps-1 d-none d-lg-inline-block">Editar</span></button>
                                     <button type="button"
-                                        (click)="showDeleteSubcategoryModal(subcategory?.subcategory_name, category?.category_id, subcategory?.subcategory_id)"
+                                        (click)="showDeleteSubcategoryModal(subcategory.subcategory_name, category.category_id, subcategory.subcategory_id)"
                                         class="btn btn-sm btn-danger d-flex align-items-center"> <i
                                             class="bi bi-trash3 fs-5"></i> <span
                                             class="fw-semibold ps-1 d-none d-lg-inline-block">Eliminar</span></button>
@@ -150,7 +150,7 @@
                 <h4 class="modal-title" id="editCategoryModalLabel">Editar Categoría</h4>
                 <button type="button" class="btn-close" (click)="editCategoryModal.hide()" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-1 p-lg-3">
                 <form (ngSubmit)="onSubmitUpdateCategory(editCategoryForm)" #editCategoryForm="ngForm"
                     id="editCategoryForm" class="pt-3 px-3 mb-3">
                     <div>
@@ -201,7 +201,7 @@
                     (click)="newSubcategoryModal.hide(); resetForm(subcategoryForm)"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-1 p-lg-3">
                 <form (ngSubmit)="onSubmitSubcategory(subcategoryForm)" #subcategoryForm="ngForm" id="subcategoryForm"
                     class="pt-3 px-3">
                     <div class="visually-hidden">
@@ -247,7 +247,7 @@
                     (click)="editSubcategoryModal.hide(); resetForm(editSubcategoryForm)"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-1 p-lg-3">
                 <form (ngSubmit)="onSubmitUpdateSubcategory(editSubcategoryForm)" #editSubcategoryForm="ngForm" id="editSubcategoryForm"
                     class="pt-3 px-3">
                     <div class="visually-hidden">
@@ -290,7 +290,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-nt-secondary"
-                    (click)="editSubcategoryModal.hide(); resetForm(categoryForm)">Cancelar</button>
+                    (click)="editSubcategoryModal.hide(); resetForm(editSubcategoryForm)">Cancelar</button>
                 <button type="submit" form="editSubcategoryForm" class="btn btn-nt-brand">Actualizar subcategoría</button>
             </div>
         </div>

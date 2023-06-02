@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { addDoc, doc, getDoc, Firestore, collection, updateDoc, getDocs, deleteDoc } from '@angular/fire/firestore';
-import { Category, Subcategory } from '../models/category.model';
+import { Category, Subcategory, SubcategoryToEdit } from '../models/category.model';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of, from } from 'rxjs';
+import { map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,7 @@ export class CategoriesService {
     }
   }
 
-  async createSubcategory(categoryInfo: Subcategory) {
+  async createSubcategory(categoryInfo: SubcategoryToEdit) {
     console.log(categoryInfo)
     try {
       // Add a new document with a generated id.
@@ -84,6 +86,47 @@ export class CategoriesService {
     return itemsArr;
   }
 
+  readAllSubcategories(): Observable<Category[]> {
+    return from(getDocs(collection(this.firestore, 'categories'))).pipe(
+      map((querySnapshot) => {
+        const categories: Category[] = [];
+  
+        querySnapshot.forEach((doc) => {
+          const category_id = doc.id;
+          const dataDoc = doc.data();
+  
+          // Obtener las subcolecciones de la categoría
+          const subcollectionsSnapshot = getDocs(collection(this.firestore, 'categories', category_id, 'subcategories'));
+  
+          const subcategories: Subcategory[] = [];
+          subcollectionsSnapshot.then((subcollections) => {
+            subcollections.forEach((subcollection) => {
+              const subcategory_id = subcollection.id;
+              const subcollectionData = subcollection.data();
+              const subcategory: Subcategory = {
+                subcategory_id,
+                subcategory_name: subcollectionData['subcategory_name'],
+                subcategory_status: subcollectionData['subcategory_status'],
+              };
+              subcategories.push(subcategory);
+            });
+  
+            const category: Category = {
+              category_id,
+              category_name: dataDoc['category_name'],
+              category_status: dataDoc['category_status'],
+              subcategories,
+            };
+  
+            categories.push(category);
+          });
+        });
+  
+        return categories;
+      })
+    );
+  }
+
 
   async updateCategory(category_id: string, categoryInfo: Category) {
     try {
@@ -121,7 +164,7 @@ export class CategoriesService {
     }
   }
 
-  async updateSubcategory(subcategory: Subcategory) {
+  async updateSubcategory(subcategory: SubcategoryToEdit) {
     if (subcategory.category_status === 'inactive' && subcategory.subcategory_status === 'active') {
       this._toastr.error('Subcategoría no actualizada ya que categoría está inactiva', 'Error');
       return false;
