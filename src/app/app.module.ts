@@ -37,6 +37,7 @@ import { FeaturedProductsComponent } from './pages/featured-products/featured-pr
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { MiniLoaderComponent } from './components/mini-loader/mini-loader.component';
 import { ThousandsPipe } from './pipes/thousands.pipe';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ThousandsPipe } from './pipes/thousands.pipe';
     ProductDetailComponent,
     MiniLoaderComponent,
     ThousandsPipe,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

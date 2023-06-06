@@ -1,0 +1,19 @@
+.productsRow .img-fit {
+    width: 100%;
+    height: 7rem;
+    object-fit: cover;
+}
+
+.alertContainer {
+    height: 1rem;
+}
+
+.cartRemove {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.cartTable {
+    min-height: 40vh;
+}

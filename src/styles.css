@@ -184,11 +184,15 @@ body {
   color: var(--nt-brand);
 }
 
+.fc-lightbrand {
+  color: var(--nt-lightbrand);
+}
+
 .fc-lightblue {
   color: var(--nt-lightblue);
 }
 
-a.fc-brand:hover {
+a.fc-brand:hover, a.fc-lightbrand:hover {
   color: var(--nt-darkbrand);
 }
 

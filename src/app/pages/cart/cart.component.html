@@ -1,0 +1,73 @@
+<div class="container ntContainer">
+    <div class="row pt-3">
+        <div class="col-12">
+            <h3 class="mb-3">Carrito de compra</h3>
+            <div *ngIf="productList.length > 0; else noProductsInCart">
+                <div class="row">
+                    <div class="table-responsive cartTable">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr class="fc-brand">
+                                    <th scope="col">Producto</th>
+                                    <th></th>
+                                    <th scope="col" class="text-end">Precio</th>
+                                    <th scope="col" class="text-center">Cantidad</th>
+                                    <th scope="col" class="text-end" style="width: 200px;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr colspan="5" *ngFor="let product of productList; let i = index;">
+                                    <td style="width: 100px;">
+                                        <div class="d-flex productsRow">
+                                            <img src="{{product.product_imageUrl}}" alt="imagen producto"
+                                                class="img-fluid img-fit">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5 class="fc-darkblue mb-0">{{product.product_name}}</h5>
+                                        <a class="fc-lightbrand text-decoration-none cartRemove"
+                                            (click)="deleteFromCart(product)">
+                                            Quitar
+                                        </a>
+                                    </td>
+                                    <td class="text-end">${{product.product_price | thousands}}</td>
+                                    <td class="text-center">
+                                        <div class="col-12 col-lg-4 mx-auto">
+                                            <input type="number" [(ngModel)]="product.quantity"
+                                                (blur)="checkQuantity(product)" placeholder="0"
+                                                (ngModelChange)='onChangeQuantity($event, product)'
+                                                class="form-control text-center" aria-label="Cantidad">
+                                        </div>
+                                        <div class="alertContainer">
+                                            <span *ngIf="product.quantity > product.product_stock"
+                                                class="text-danger animate__animated animate__fadeIn">Excedes el
+                                                stock.</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">${{ product.product_price*product.quantity | thousands}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-12 col-lg-6"></div>
+                    <div class="col-12 col-lg-6 text-end">
+                        <h4>Subtotal: $ {{subtotal | thousands}}</h4>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noProductsInCart>
+                <div class="row">
+                    <div class="col-12 text-center pt-5">
+                        <h4>No hay productos en tu carrito.</h4>
+                        <a class="fc-lightbrand text-decoration-none cartRemove" [routerLink]="['/inicio']">
+                        Volver al Inicio
+                    </a>
+                    </div>
+                </div>
+            </ng-template>
+
+        </div>
+    </div>
+</div>

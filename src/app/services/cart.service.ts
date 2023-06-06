@@ -8,13 +8,21 @@ export class CartService {
 
   cart: any[] = [];
 
-  constructor() { }
+  constructor() { 
+    this.loadCart();
+    console.log(this.cart)
+  }
 
   getCart() {
     return this.cart;
   }
 
   saveCart() {
+    localStorage.setItem('carrito', JSON.stringify(this.cart));
+  }
+
+  saveCartFromComponent(secondCart: any) {
+    this.cart = secondCart;
     localStorage.setItem('carrito', JSON.stringify(this.cart));
   }
 
@@ -35,7 +43,7 @@ export class CartService {
     return this.cart.find(product => product.id === productId);
   }
 
-  removeProduct(product: Product) {
+  removeProduct(product: Product | ProductInCart) {
     const index = this.cart.findIndex((x:any) => x.id === product.id)
     
     if (index > -1) {

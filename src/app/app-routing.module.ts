@@ -11,6 +11,7 @@ import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,11 @@ const routes: Routes = [
     path: 'producto/:productId',
     title: 'Producto | naturtea',
     component: ProductDetailComponent
+  },
+  {
+    path: 'carrito',
+    title: 'Carrito | naturtea',
+    component: CartComponent
   },
   {
     path: '',
