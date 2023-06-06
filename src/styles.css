@@ -17,6 +17,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: #FFFFFF;
 }
 
 .ntContainer {
@@ -183,8 +184,24 @@ body {
   color: var(--nt-brand);
 }
 
+.fc-lightblue {
+  color: var(--nt-lightblue);
+}
+
 a.fc-brand:hover {
   color: var(--nt-darkbrand);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 @media screen and (min-width: 992px) {

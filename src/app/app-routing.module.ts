@@ -10,6 +10,7 @@ import { GeneralComponent } from './pages/admin/general/general.component';
 import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,11 @@ const routes: Routes = [
     data: {
       role: 'admin'
     },
+  },
+  {
+    path: 'producto/:productId',
+    title: 'Producto | naturtea',
+    component: ProductDetailComponent
   },
   {
     path: '',

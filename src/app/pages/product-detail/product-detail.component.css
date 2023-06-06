@@ -1,0 +1,7 @@
+
+.quantityMessageContainer {
+    height: 2rem;
+}
+.quantityMessageContainer span {
+    font-size: .9rem;
+}

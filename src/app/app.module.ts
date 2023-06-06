@@ -33,6 +33,10 @@ import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { GeneralComponent } from './pages/admin/general/general.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
+import { FeaturedProductsComponent } from './pages/featured-products/featured-products.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { MiniLoaderComponent } from './components/mini-loader/mini-loader.component';
+import { ThousandsPipe } from './pipes/thousands.pipe';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,10 @@ import { OrdersComponent } from './pages/admin/orders/orders.component';
     CategoriesComponent,
     GeneralComponent,
     OrdersComponent,
+    FeaturedProductsComponent,
+    ProductDetailComponent,
+    MiniLoaderComponent,
+    ThousandsPipe,
   ],
   imports: [
     BrowserModule,

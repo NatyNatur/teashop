@@ -10,13 +10,15 @@
             </button>
         </div>
     </div>
-    <div class="row p-md-3">
+    <div class="row p-md-3 productsRow">
         <div class="col-6 col-md-4 col-lg-2 text-center mb-2" *ngFor="let product of productsList; let i = index">
             <div class="card h-100" id="producto{{i + 1}}">
                 <img src="{{product.product_imageUrl}}" class="card-img-top" alt="{{product.product_name}}">
-                <div class="card-body">
+                <div class="card-body p-1 pt-2">
                     <h5 class="card-title">{{product.product_name}}</h5>
-                    <p class="card-text">${{product.product_price | number:'1.0-0':'en-US'}}</p>
+                    <p class="card-text">${{product.product_price | thousands}}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
                     <div class="d-flex justify-content-between">
                         <button type="button" (click)="showEditProductModal(product, product.id)"
                             class="btn btn-sm btn-warning d-flex align-items-center"><i
@@ -40,7 +42,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="addProductModalLabel">Agregar Producto</h4>
-                <button type="button" class="btn-close" (click)="addProductModal.hide();" aria-label="Close"></button>
+                <button type="button" class="btn-close" (click)="addProductModal.hide(); resetForm(addProductForm)" aria-label="Close"></button>
             </div>
             <div class="modal-body p-1 p-lg-3">
                 <form (ngSubmit)="onSubmitNewProduct(addProductForm)" #addProductForm="ngForm" id="addProductForm"
@@ -140,7 +142,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-nt-secondary"
-                    (click)="addProductModal.hide();">Cancelar</button>
+                    (click)="addProductModal.hide(); resetForm(addProductForm)">Cancelar</button>
                 <button type="submit" form="addProductForm" class="btn btn-nt-primary">Agregar</button>
             </div>
         </div>

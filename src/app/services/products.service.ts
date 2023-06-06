@@ -131,4 +131,22 @@ export class ProductsService {
       return false;
     }
   }
+
+  async getFeaturedProducts() {
+      const querySnapshot = await getDocs(collection(this.firestore, "products"));
+      const itemsArr: { id: string }[] = [];
+    
+      querySnapshot.forEach((doc) => {
+        const dataDoc = doc.data();
+        const id = doc.id;
+        
+        // Verificar si el producto está destacado
+        if (dataDoc['product_featured'] === 'Si') {
+          itemsArr.push({ id, ...dataDoc });
+        }
+      });
+    
+      return itemsArr;
+    }
+
 }
