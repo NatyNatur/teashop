@@ -32,6 +32,10 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.fw-500 {
+  font-weight: 500;
+}
+
 .btn-nt-darkprimary {
   --bs-btn-color: var(--nt-white);
   --bs-btn-bg: var(--nt-darkblue);

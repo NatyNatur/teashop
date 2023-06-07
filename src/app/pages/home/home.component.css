@@ -6,8 +6,41 @@
     height: 10rem;
 }
 
+:host .carousel-caption {
+    background-color: #FFF;
+    opacity: .8;
+    color: var(--nt-darkblue);
+}
+
+:host .slide1 {
+    background-image: url('../../../assets/img/resources/alice-pasqual-xdD-x2Y2SPI-unsplash.jpg');
+    background-position: top right;
+}
+
+
+:host .slide2 {
+    background-image: url('../../../assets/img/resources/nathan-dumlao-tSGHEbYSUGw-unsplash.jpg');
+    background-position: 100% 80%;
+}
+
+:host .slide3 {
+    background-image: url('../../../assets/img/resources/jorge-garcia-4aJ9GCwB3Gw-unsplash.jpg');
+    background-position: 100% 80%;
+}
+
+
+:host .caroSlides {
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 @media screen and (min-width: 992px) {
     .imgBanner {
         height: 25rem;
+    }
+
+    :host .caroSlides {
+        height: 55vh;
     }
 }

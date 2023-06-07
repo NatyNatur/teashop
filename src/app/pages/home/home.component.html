@@ -1,6 +1,29 @@
-<div class="container-fluid ntContainer">
-    <div class="row imgBanner">
-    </div>
+<div class="container-fluid ntContainer p-0">
+    <!-- <div class="row imgBanner">
+    </div> -->
+    <carousel [showIndicators]="false">
+        <slide class="caroSlides slide1">
+            
+            <div class="carousel-caption d-none d-md-block">
+                <h2>naturtea</h2>
+                <p class="fw-500">Tu tienda online de té y accesorios.</p>
+            </div>
+        </slide>
+        <slide class="caroSlides slide2">
+            
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Té e Infusiones</h2>
+                <p class="fw-500">Diversas para cada hora del día.</p>
+            </div>
+        </slide>
+        <slide class="caroSlides slide3">
+
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Accesorios</h2>
+                <p class="fw-500">Para preparar tu té favorito.</p>
+            </div>
+        </slide>
+    </carousel>
     <app-featured-products>
 
     </app-featured-products>

@@ -12,10 +12,11 @@ import { CategoriesComponent } from './pages/admin/categories/categories.compone
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
 
 const routes: Routes = [
   {
-    path: 'inicio',
+    path: '',
     title: 'Inicio | naturtea',
     component: HomeComponent
   },
@@ -35,9 +36,9 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'no-encontrado',
+    path: 'en-contruccion',
     title: 'Ups',
-    component: NotFoundComponent
+    component: UnderConstructionComponent
   },
   {
     path: 'admin',
@@ -82,13 +83,17 @@ const routes: Routes = [
     component: CartComponent
   },
   {
-    path: '',
-    redirectTo: 'inicio',
-    pathMatch: 'full'
+    path: 'no-encontrado',
+    component: NotFoundComponent
   },
   {
     path: '**',
-    redirectTo: 'inicio',
+    redirectTo: '/no-encontrado'
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
   },
 ];
 

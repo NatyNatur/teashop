@@ -9,6 +9,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { environment } from 'src/environments/environment';
 
@@ -38,6 +39,8 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { MiniLoaderComponent } from './components/mini-loader/mini-loader.component';
 import { ThousandsPipe } from './pipes/thousands.pipe';
 import { CartComponent } from './pages/cart/cart.component';
+import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,8 @@ import { CartComponent } from './pages/cart/cart.component';
     MiniLoaderComponent,
     ThousandsPipe,
     CartComponent,
+    UnderConstructionComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +79,8 @@ import { CartComponent } from './pages/cart/cart.component';
     provideStorage(() => getStorage()),
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot(),
+    CarouselModule.forRoot(), 
   ],
   providers: [],
   bootstrap: [AppComponent]
