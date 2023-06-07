@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytes, getDownloadURL, deleteObject} from '@angular/fire/storage';
-import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { Product } from '../models/product.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -147,6 +147,26 @@ export class ProductsService {
       });
     
       return itemsArr;
+    }
+
+    async getProductsByCategory(category: string) {
+      try {
+        const q = query(collection(this.firestore, 'products'), where('product_category', '==', category));
+        const productosSnapshot = await getDocs(q);
+    
+        const productos: any[] = [];
+
+        productosSnapshot.forEach((doc) => {
+          const dataDoc = doc.data();
+          const id = doc.id;
+          productos.push({ id, ...dataDoc });
+        });
+    
+        return productos;
+      } catch (error) {
+        console.error('Error al recuperar productos:', error);
+        throw error;
+      }
     }
 
 }

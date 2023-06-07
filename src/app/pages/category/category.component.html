@@ -1,1 +1,28 @@
-<p>category works!</p>
+<section class="container ntContainer">
+    <h3 class="fc-darkblue fw-semibold text-center py-5">{{cat_name}}</h3>
+    <div class="row" *ngIf="productsList.length === 0">
+        <app-mini-loader *ngIf="productsList.length === 0"></app-mini-loader>
+        </div>
+    <div class="row p-md-3 productsRow" *ngIf="productsList.length >= 1">
+        <div class="col-12 col-md-4 col-lg-3 text-center mb-3" *ngFor="let product of productsList; let i = index" >
+            <div class="card h-100" id="producto{{i + 1}}">
+                <img src="{{product.product_imageUrl}}" class="card-img-top" alt="{{product.product_name}}">
+                <div class="card-body p-1 pt-3">
+                    <h5 class="card-title">{{product.product_name}}</h5>
+                    <p class="card-text">${{product.product_price | thousands}}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 pb-3">
+                    <div class="d-flex justify-content-between">
+                        <button type="button"  [routerLink]="['/producto', product.id]" [title]="'Detalles de ' + product.product_name "
+                            class="btn btn-sm btn-nt-brand d-flex align-items-center">
+                            <span class="fw-semibold">ver más</span></button>
+                        <button type="button" (click)="addToCart(product)"
+                            class="btn btn-sm btn-nt-primary d-flex align-items-center">
+                            <i class="bi bi-cart-plus-fill"></i> <span
+                                class="fw-semibold ps-1 d-none d-xl-inline">agregar</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

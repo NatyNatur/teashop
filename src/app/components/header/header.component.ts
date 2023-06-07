@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,10 @@ export class HeaderComponent {
   giftIsCollapsed: boolean = true;
 
   public getScreenWidth: any;
+
+  constructor(private _router: Router) {
+
+  }
   
   ngOnInit() {
     this.onWindowResize();
@@ -29,6 +34,11 @@ export class HeaderComponent {
     else {
       this.isCollapsed = true;
     }
+  }
+
+  navegarCategoria(name: string, id: string) {
+    const queryParams = { name, id };
+    this._router.navigate(['/categoria'], { queryParams });
   }
 
 }

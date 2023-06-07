@@ -1,6 +1,6 @@
 <section class="container">
     <h3 class="fc-darkblue fw-semibold text-center py-5">Productos destacados</h3>
-    <div class="row p-md-3 productsRow">
+    <div class="row" *ngIf="featuredProductsList.length === 0">
     <app-mini-loader *ngIf="featuredProductsList.length === 0"></app-mini-loader>
     </div>
     <div class="row p-md-3 productsRow" *ngIf="featuredProductsList.length >= 1">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-footer bg-white border-top-0 pb-3">
                     <div class="d-flex justify-content-between">
-                        <button type="button" (click)="seeMore()"  [routerLink]="['/producto', product.id]" [title]="'Detalles de ' + product.product_name "
+                        <button type="button" [routerLink]="['/producto', product.id]" [title]="'Detalles de ' + product.product_name "
                         [state]="{ product_id: product.id}"
                             class="btn btn-sm btn-nt-brand d-flex align-items-center">
                             <span class="fw-semibold">ver más</span></button>

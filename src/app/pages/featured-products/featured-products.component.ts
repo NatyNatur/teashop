@@ -29,10 +29,6 @@ export class FeaturedProductsComponent implements OnInit {
     });
   }
 
-  seeMore() {
-    console.log('lala');
-  }
-
   addToCart2(product: Product) {
     console.log(product);
     if (!this._cart.checkProductInCart(product)) {

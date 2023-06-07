@@ -49,8 +49,12 @@ export class ProductsComponent {
       this._loader.loaderOn();
       this._products.createProduct(this.newProduct, this.selectedFile).then(() => {
         this.addProductModal?.hide();
-        this._loader.loaderOff();
         productForm.resetForm();
+        console.log('en el then')
+      }).finally(()=> {
+        console.log('terminó de subir?')
+        this.selectedFile = undefined;
+        this._loader.loaderOff();
       });
     }
   }
@@ -92,11 +96,14 @@ export class ProductsComponent {
     if (editProductForm.invalid) { return; }
     else {
       console.log(this.selectedFile);
-      this._products.updateProduct(this.productId, this.product, this.selectedFile);
+      this._products.updateProduct(this.productId, this.product, this.selectedFile).then(()=> {
+        this.editProductModal?.hide();
+        this.selectedFile = undefined;
+        let fileInput = document.getElementById('ntEditProductImage') as any;
+        fileInput.value = '';
+      });
       //this.getProducts();
       //this.resetProductForm(editProductForm);
-      //this.modalNewCategory?.hide();
-      this.editProductModal?.hide();
     }
   }
 
@@ -161,4 +168,8 @@ export class ProductsComponent {
   resetForm(someForm: NgForm) {
     someForm.resetForm();
   }
+
+  // cleanSelectedFile(form: NgForm) {
+  //   form.control['product_image'] = null;
+  // }
 }

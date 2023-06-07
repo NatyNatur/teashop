@@ -13,6 +13,7 @@ import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,11 @@ const routes: Routes = [
     component: ProductDetailComponent
   },
   {
+    path: 'categoria',
+    title: 'Categoría',
+    component: CategoryComponent,
+  },
+  {
     path: 'carrito',
     title: 'Carrito | naturtea',
     component: CartComponent
@@ -86,10 +92,10 @@ const routes: Routes = [
     path: 'no-encontrado',
     component: NotFoundComponent
   },
-  {
-    path: '**',
-    redirectTo: '/no-encontrado'
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '/no-encontrado'
+  // },
   {
     path: '',
     redirectTo: '',

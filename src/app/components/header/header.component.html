@@ -35,10 +35,11 @@
                                 <li><a class="dropdown-item" href="#">Negro</a></li>
                                 <li><a class="dropdown-item" href="#">Blanco</a></li>
                                 <li><a class="dropdown-item" href="#">Rooibos</a></li>
+                                <li><a class="dropdown-item" [routerLink]="['/categoria']" [queryParams]="{id: 'VUCTWM9H3Jp1XV5EfbR1', name: 'Todo Té e Infusiones'}" > Todos</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Regalos</a>
+                            <a class="nav-link" [routerLink]="['/categoria']" [queryParams]="{id: '8FfPTQ0Tq9L34sv0IdaB', name: 'Regalos'}" >Regalos</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
@@ -52,6 +53,7 @@
                                 <li><a class="dropdown-item" href="#">Coladores</a></li>
                                 <li><a class="dropdown-item" href="#">Tazas</a></li>
                                 <li><a class="dropdown-item" href="#">Termos</a></li>
+                                <li><a class="dropdown-item" [routerLink]="['/categoria']" [queryParams]="{id: 'g9Exdkk2IEteAvrStzq5', name: 'Todo Accesorios'}" > Todos</a></li>
                             </ul>
                         </li>
                     </ul>
