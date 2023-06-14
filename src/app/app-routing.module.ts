@@ -91,7 +91,7 @@ const routes: Routes = [
     component: ProductDetailComponent
   },
   {
-    path: 'categoria/:name',
+    path: 'categoria',
     title: 'Categoría',
     component: CategoryComponent,
   },
@@ -104,10 +104,10 @@ const routes: Routes = [
     path: 'no-encontrado',
     component: NotFoundComponent
   },
-  {
-    path: '**',
-    redirectTo: '/no-encontrado'
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '/no-encontrado'
+  // },
   {
     path: '',
     redirectTo: '',

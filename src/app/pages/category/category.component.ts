@@ -34,7 +34,6 @@ export class CategoryComponent implements OnInit {
       console.log(params)
       this.cat_name = params['name'];
       this.cat_id = params['id'];
-      // Utiliza el valor del nombre y el id de la categoría como desees...
       this.getProductsByCategory(this.cat_id);
     })
   }
