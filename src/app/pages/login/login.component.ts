@@ -30,8 +30,7 @@ export class LoginComponent {
     if (user) {
       localStorage.setItem('email', this.registeredUser.email);
       // guard redirige si usuario no es admin
-      this._router.navigateByUrl('/bienvenido');
+      this._router.navigateByUrl('/cliente');
     }
-    this._loaderService.loaderOff();
   }
 }

@@ -6,15 +6,17 @@ import { RegisteredUser } from '../models/registered-user.model';
 import { NewUser } from '../models/new-user.model';
 
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: User | null | undefined;
-  userCredentials : UserCredential | undefined;
+  userCredentials: UserCredential | undefined;
   userToken: string = '';
   roleAs: string = '';
+  userData: any;
 
   constructor(private _auth: Auth, private _firestore: Firestore, private _toastr: ToastrService) {
     this.readToken();
@@ -25,6 +27,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('rolInterno');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('userData');
     return signOut(this._auth);
   }
   // Ingresar
@@ -40,8 +43,12 @@ export class AuthService {
       }
       else {
         localStorage.setItem('rolInterno', 'cliente');
-        
+
       }
+      this.getUserProfile().subscribe((res) => {
+        localStorage.setItem('userData', JSON.stringify(res));
+        this.userData = res;
+      })
       this.saveToken(token!);
       return user;
     } catch (error: any) {
@@ -87,11 +94,45 @@ export class AuthService {
     }
   }
 
+  async updateUserData(userForm: NewUser) {
+    try {
+      const user = this._auth.currentUser;
+      const userDocRef = doc(this._firestore, `usuarios/${user?.uid}`);
+      await updateDoc(userDocRef, {
+        nombre: userForm['nombre'],
+        apellido: userForm['apellido'],
+        email: userForm['email'],
+        direccion: userForm['direccion'],
+        comuna: userForm['comuna'],
+        tipoUsuario: userForm['tipoUsuario']
+      });
+      this._toastr.success('Información actualizada correctamente', 'Listo');
+      return true;
+    }
+    catch (error) {
+      console.log(error);
+      this._toastr.error('Hubo un error, Información no actualizada', 'Error')
+      return false;
+    }
+  }
+
   // Recuperar información del usuario autenticado
   getUserProfile() {
     const user = this._auth.currentUser;
     const userDocRef = doc(this._firestore, `usuarios/${user?.uid}`);
     return docData(userDocRef);
+  }
+
+  loadUserProfile() {
+    this.userData = JSON.parse(localStorage.getItem('userData') as any) || [];
+  }
+
+  saveUserProfile() {
+    localStorage.setItem('userData', JSON.stringify(this.userData));
+  }
+
+  getUserData() {
+    return this.userData;
   }
 
   // Ingresar como admin
@@ -107,7 +148,7 @@ export class AuthService {
       else {
         //this.toastService.showToast('No figuras como administrador. Si es un error, contáctate con Soporte.', 'danger');
         this._toastr.error('No figuras como administrador. Si es un error, contáctate con Soporte.', 'Error')
-        
+
       }
       this.userCredentials = user;
       return user && isAdmin;
@@ -149,8 +190,8 @@ export class AuthService {
         return 'Usuario no registrado.'
       case 'auth/too-many-requests':
         return 'Demasiados intentos.'
-        case 'permission-denied':
-          return 'Permiso denegado. Póngase en contacto con Soporte.'
+      case 'permission-denied':
+        return 'Permiso denegado. Póngase en contacto con Soporte.'
       default:
         return 'Error desconocido';
     }

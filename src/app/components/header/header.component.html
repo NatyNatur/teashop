@@ -21,7 +21,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-start flex-grow-1 ps-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" [routerLink]="['inicio']">Inicio</a>
+                            <a class="nav-link active" aria-current="page" [routerLink]="['']">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
@@ -32,9 +32,9 @@
                             </a>
                             <ul class="dropdown-menu rounded-0 p-0" [collapse]="navTeaIsCollapsed" id="navTea"
                                 [isAnimated]="true">
-                                <li><a class="dropdown-item" href="#">Negro</a></li>
+                                <!-- <li><a class="dropdown-item" href="#">Negro</a></li>
                                 <li><a class="dropdown-item" href="#">Blanco</a></li>
-                                <li><a class="dropdown-item" href="#">Rooibos</a></li>
+                                <li><a class="dropdown-item" href="#">Rooibos</a></li> -->
                                 <li><a class="dropdown-item" [routerLink]="['/categoria']" [queryParams]="{id: 'VUCTWM9H3Jp1XV5EfbR1', name: 'Todo Té e Infusiones'}" > Todos</a></li>
                             </ul>
                         </li>
@@ -49,11 +49,11 @@
                             </a>
                             <ul class="dropdown-menu rounded-0 p-0" [collapse]="accIsCollapsed" id="navAccesories"
                                 [isAnimated]="true">
-                                <li><a class="dropdown-item" href="#">Bombillas</a></li>
+                                <!-- <li><a class="dropdown-item" href="#">Bombillas</a></li>
                                 <li><a class="dropdown-item" href="#">Coladores</a></li>
                                 <li><a class="dropdown-item" href="#">Tazas</a></li>
-                                <li><a class="dropdown-item" href="#">Termos</a></li>
-                                <li><a class="dropdown-item" [routerLink]="['/categoria']" [queryParams]="{id: 'g9Exdkk2IEteAvrStzq5', name: 'Todo Accesorios'}" > Todos</a></li>
+                                <li><a class="dropdown-item" href="#">Termos</a></li> -->
+                                <li><a class="dropdown-item" [routerLink]="['/categoria']" [queryParams]="{id: 'g9Exdkk2IEteAvrStzq5', name: 'Todo Accesorios',}" > Todos</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -62,8 +62,8 @@
                     <button class="btn btn-outline-success" type="submit"><i class="bi bi-person-fill"></i></button>
                 </form> -->
                     <div class="d-flex navIcons">
-                        <a [routerLink]="['ingresa']" class="text-reset me-3"><i class="bi bi-person-fill fs-4"></i></a>
-                        <a [routerLink]="['carrito']" class="text-reset"><i class="bi bi-cart2 fs-4"></i></a>
+                        <a [routerLink]="['ingresa']" (click)="getScreenWidth < 992 ? isCollapsed = true : isCollapsed = false" class="text-reset me-3"><i class="bi bi-person-fill fs-4"></i></a>
+                        <a [routerLink]="['carrito']" (click)="getScreenWidth < 992 ? isCollapsed = true : isCollapsed = false" class="text-reset "><i class="bi bi-cart2 fs-4"></i></a>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 
 const routes: Routes = [
   {
@@ -22,9 +23,20 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'bienvenido',
+    path: 'cliente',
     title: 'Bienvenido | naturtea',
-    component: WelcomeComponent
+    component: WelcomeComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'mi-cuenta',
+        pathMatch: 'full'
+      },
+      {
+        path: 'mi-cuenta',
+        component: UserInformationComponent
+      }
+    ]
   },
   {
     path: 'registro',
@@ -79,7 +91,7 @@ const routes: Routes = [
     component: ProductDetailComponent
   },
   {
-    path: 'categoria',
+    path: 'categoria/:name',
     title: 'Categoría',
     component: CategoryComponent,
   },
@@ -92,10 +104,10 @@ const routes: Routes = [
     path: 'no-encontrado',
     component: NotFoundComponent
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '/no-encontrado'
-  // },
+  {
+    path: '**',
+    redirectTo: '/no-encontrado'
+  },
   {
     path: '',
     redirectTo: '',

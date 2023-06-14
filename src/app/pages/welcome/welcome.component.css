@@ -1,0 +1,23 @@
+.userSidebar {
+    background-color: #436380;
+}
+
+.userNav ul li a {
+    color: #FFF;
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 0;
+    padding-left: 1rem;
+}
+
+
+@media (min-width: 992px) { 
+    .userNav ul li.nav-item {
+        margin-bottom: 1rem;
+    }
+    
+    .userNav ul li a.active {
+        border-left: solid 5px var(--nt-brand);
+        margin-left: -5px;
+    }
+}

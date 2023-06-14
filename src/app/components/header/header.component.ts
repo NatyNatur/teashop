@@ -17,7 +17,7 @@ export class HeaderComponent {
   public getScreenWidth: any;
 
   constructor(private _router: Router) {
-
+    this.getScreenWidth = window.innerWidth;
   }
   
   ngOnInit() {
@@ -38,7 +38,7 @@ export class HeaderComponent {
 
   navegarCategoria(name: string, id: string) {
     const queryParams = { name, id };
-    this._router.navigate(['/categoria'], { queryParams });
+    this._router.navigate(['/categoria'], { queryParams});
   }
 
 }

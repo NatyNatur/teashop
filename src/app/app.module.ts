@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -41,6 +41,7 @@ import { ThousandsPipe } from './pipes/thousands.pipe';
 import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { CategoryComponent } from './pages/category/category.component';
     CartComponent,
     UnderConstructionComponent,
     CategoryComponent,
+    UserInformationComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { CategoryComponent } from './pages/category/category.component';
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     ToastrModule.forRoot(),
-    CarouselModule.forRoot(), 
+    CarouselModule.forRoot(),
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

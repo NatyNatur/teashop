@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-12 mb-md-2">
+            <div class="row p-3 p-lg-4 userCard" *ngIf="isDone">
+                <div class="row border-bottom border-secondary mb-3 pb-2">
+                    <div class="col-7">
+                        <h4 class="fc-darkblue text-uppercase">Mi cuenta</h4>
+                    </div>
+                    <div class="col-5 text-end">
+                        <button type="button" class="btn btn-nt-primary" (click)="openEditUserModal()">
+                            <span><i class="bi bi-pencil-square me-lg-2"></i></span>
+                            <span class="d-none d-lg-inline-block"> Editar información</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mb-2">
+                    <h6> Información de contacto</h6>
+                    <p class="mb-0">{{userData.nombre}} {{userData.apellido}}</p>
+                    <p class="mb-0">{{userData.email}}</p>
+                </div>
+                <div class="col-12 col-lg-6 mb-2">
+                    <h6>Dirección</h6>
+                    <p class="mb-0">{{userData.direccion}}</p>
+                    <p class="mb-0">{{userData.comuna}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- editUserDataModal -->
+    <div class="modal fade" bsModal #editUserDataModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editUserDataModalLabel">Editar Información</h4>
+                    <button type="button" class="btn-close" (click)="editUserDataModal.hide();"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 p-lg-3">
+                    <form class="row" [formGroup]="userProfile" (ngSubmit)="onSubmitEditUserData();"
+                        id="editUserDataForm">
+                        <div class="col-12 col-lg-6">
+                            <label for="ntSignupName" class="form-label">Nombre</label>
+                            <input type="text" formControlName="nombre" class="form-control" id="ntSignupName"
+                                placeholder="Juanita">
+                            <span class="messageContainer">
+                                <span *ngIf="(name?.dirty || name?.touched) && name?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                    nombre.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntSignupLastname" class="form-label">Apellido</label>
+                            <input type="text" formControlName="apellido" class="form-control" id="ntSignupLastname"
+                                placeholder="Pérez-Cotapos">
+                            <span class="messageContainer">
+                                <span *ngIf="(lastname?.dirty || lastname?.touched) && lastname?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                    apellido.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntSignupEmail" class="form-label">Correo electrónico </label>
+                            <input type="email" formControlName="email" class="form-control" id="ntSignupEmail"
+                                placeholder="juanitapc@lala.com">
+                            <span class="messageContainer">
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntSignupAddres" class="form-label">Dirección</label>
+                            <input type="text" formControlName="direccion" class="form-control" id="ntSignupAddres"
+                                placeholder="Avenida Falsa 123">
+                            <span class="messageContainer">
+                                <span *ngIf="(address?.dirty || address?.touched) && address?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                    dirección.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntSignupCommune" class="form-label">Comuna</label>
+                            <input type="text" formControlName="comuna" class="form-control" id="ntSignupCommune"
+                                placeholder="Springfield">
+                            <span class="messageContainer">
+                                <span *ngIf="(commune?.dirty || commune?.touched) && commune?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                    comuna.</span>
+                            </span>
+                        </div>
+                        <div class="visually-hidden">
+                            <input type="text" class="form-control" formControlName="tipoUsuario" placeholder="cliente">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-nt-secondary"
+                        (click)="editUserDataModal.hide();fillUserDataForm()">Cancelar</button>
+                    <button type="submit" form="editUserDataForm" class="btn btn-nt-primary">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

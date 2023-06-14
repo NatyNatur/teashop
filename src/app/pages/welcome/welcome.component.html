@@ -1,2 +1,29 @@
-<div class="container-fluid ntContainer">
-</div>
+<div class="container ntContainer ff-vollkorn">
+    <div class="row">
+        <div class="col-12 col-lg-3 pt-4">
+            <div class="userSidebar p-3 p-xl-5">
+                <div class="pb-3 pb-lg-5">
+                    <h3 class="text-light text-center fw-bold ff-poppins">Bienvenido</h3>
+                </div>
+                <div class="userNav">
+                    <ul class="nav flex-row flex-lg-column justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['mi-cuenta']" routerLinkActive="active">Mi cuenta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['pedidos']" routerLinkActive="active">Mis pedidos</a>
+                        </li>
+                        <li class="nav-item" *ngIf="role === 'admin'" [routerLink]="['/admin']" routerLinkActive="active">
+                            <a class="nav-link">Panel de Administración</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/']" (click)="logOut()">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-9 pt-4 ff-poppins">
+            <router-outlet></router-outlet>
+        </div>
+    </div>

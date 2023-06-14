@@ -27,7 +27,7 @@ export class SignupComponent {
     if (user) {
       localStorage.setItem('email', this.user.email)
       this._authService.uploadAditionalUserInfo(this.user);
-      this._router.navigateByUrl('/bienvenido');
+      this._router.navigateByUrl('/cliente');
     }
   }
 }
