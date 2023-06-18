@@ -31,7 +31,8 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
-      console.log(params)
+      this.isReady = false;
+      this.productsList = [];
       this.cat_name = params['name'];
       this.cat_id = params['id'];
       this.getProductsByCategory(this.cat_id);
@@ -51,12 +52,11 @@ export class CategoryComponent implements OnInit {
     // console.log(routeParams.get('name'))
     // const categoryIdFromRoute = routeParams.get('categoryId');
     // console.log(categoryIdFromRoute);
-    this._products.getProductsByCategory(id).then((res)=> {
+    this._products.getProductsByCategoryAndSub(id).then((res)=> {
       this.productsList = res;
-      console.log('by cat', res)
       
     }).finally(()=> {
-      console.log('terminó')
+      this.isReady = true;
     })
   }
 

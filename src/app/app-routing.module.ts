@@ -15,6 +15,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
         path: 'mi-cuenta',
         component: UserInformationComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuard],
   },
   {
     path: 'registro',
@@ -49,7 +51,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'en-contruccion',
+    path: 'en-construccion',
     title: 'Ups',
     component: UnderConstructionComponent
   },
@@ -80,7 +82,7 @@ const routes: Routes = [
         component: OrdersComponent,
       }
     ],
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'admin'
     },
@@ -101,7 +103,7 @@ const routes: Routes = [
     component: CartComponent
   },
   {
-    path: 'no-encontrado',
+    path: '404',
     component: NotFoundComponent
   },
   // {

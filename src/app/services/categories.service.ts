@@ -30,7 +30,6 @@ export class CategoriesService {
   }
 
   async createSubcategory(categoryInfo: SubcategoryToEdit) {
-    console.log(categoryInfo)
     try {
       // Add a new document with a generated id.
       const docRef = await addDoc(collection(this.firestore, "categories", categoryInfo.category_id, 'subcategories'), {
@@ -148,10 +147,9 @@ export class CategoriesService {
 
   async updateSubcategoriesStatus(category_id: string, status: string) {
     try {
-      console.log("##### INACTIVE", status)
       const subcollectionsSnapshot = await getDocs((collection(this.firestore, "categories", category_id, "subcategories")));
       subcollectionsSnapshot.forEach(async (doc) => {
-        console.log(doc)
+        //console.log(doc)
         const subcategoriaRef = doc.ref;
         await updateDoc(subcategoriaRef, { subcategory_status: status });
       });
@@ -163,6 +161,7 @@ export class CategoriesService {
       return false;
     }
   }
+  
 
   async updateSubcategory(subcategory: SubcategoryToEdit) {
     if (subcategory.category_status === 'inactive' && subcategory.subcategory_status === 'active') {
@@ -184,27 +183,6 @@ export class CategoriesService {
       return false;
     }
   }
-
-  // async checkIfCategoryisDeactivated(category_id:string) {
-  //   let message;
-  //   try {
-  //   // Obtener el documento de la categoría
-  //   const cateRef = doc(this.firestore, "categories", category_id);
-  //   const categoriaSnapshot = await getDoc(cateRef);
-
-  //   console.log(categoriaSnapshot.data())
-  //   // Verificar el estado de la categoría
-  //   if (categoriaSnapshot.exists() && categoriaSnapshot.data()['category_status'] === 'inactive') {
-  //     message = 'La categoría está inactiva. No se puede actualizar la subcategoría.';
-  //     return;
-  //   }
-
-  //   } catch (error) {
-  //     console.log(error);
-  //     this._toastr.error('Hubo un error, subcategoría no actualizada', 'Error')
-  //   }
-  //   return message;
-  // }
 
   async deleteCategory(category_id: string) {
     try {

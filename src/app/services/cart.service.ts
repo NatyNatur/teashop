@@ -10,7 +10,6 @@ export class CartService {
 
   constructor() { 
     this.loadCart();
-    console.log(this.cart)
   }
 
   getCart() {
@@ -33,6 +32,11 @@ export class CartService {
 
   loadCart() {
     this.cart = JSON.parse(localStorage.getItem('carrito') as any) || [];
+  }
+
+  emptyCart() {
+    this.cart = [];
+    localStorage.setItem('carrito', JSON.stringify(this.cart));
   }
 
   checkProductInCart(product: Product) {

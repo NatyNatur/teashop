@@ -55,9 +55,8 @@ export class CategoriesComponent implements OnInit {
     //   this._loader.loaderOff();
     // })
     this.categories.readSubcategories().then((res: any) => {
-      console.log(res);
       this.categoriesList = res;
-      console.log('subcategoriesList', this.categoriesList);
+      //console.log('subcategoriesList', this.categoriesList);
       this._loader.loaderOff();
     }).catch((error) => {
       console.error('Error al leer los datos:', error);
@@ -67,8 +66,6 @@ export class CategoriesComponent implements OnInit {
 
   getAllCategoriesObs() {
     this.categories.readAllSubcategories().subscribe((allCats: Category[]) => {
-      console.log(allCats);
-      //this.categoriesList = allCats;
       this._loader.loaderOff();
     })
   }
@@ -187,7 +184,7 @@ export class CategoriesComponent implements OnInit {
           })
         }
       else {
-        console.log('act falso');
+        //console.log('act falso');
         this._loader.loaderOff()
       }
 

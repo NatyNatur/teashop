@@ -38,21 +38,20 @@ export class ProductsComponent {
   async getCategories(): Promise<void> {
     this._categories.readSubcategories().then( (res: any) => {
       this.categoriesList = res;
-      console.log(res)
     })
   }
 
   async onSubmitNewProduct(productForm: NgForm) {
-    console.log(productForm.value)
+    //console.log(productForm.value)
     if (productForm.invalid) { return; }
     else {
       this._loader.loaderOn();
       this._products.createProduct(this.newProduct, this.selectedFile).then(() => {
         this.addProductModal?.hide();
         productForm.resetForm();
-        console.log('en el then')
+        //console.log('en el then')
       }).finally(()=> {
-        console.log('terminó de subir?')
+        //console.log('terminó de subir?')
         this.selectedFile = undefined;
         this._loader.loaderOff();
       });
@@ -76,14 +75,13 @@ export class ProductsComponent {
   getProducts() {
     this._loader.loaderOn();
     this._products.getProductsObs().subscribe(products => {
-      console.log('subs', products);
+      //console.log('subs', products);
       this.productsList = products;
       this._loader.loaderOff();
     })
   }
 
   showEditProductModal(product: Product, product_id : string)  {
-    console.log(product)
     this.activateEditSubcategorySelect(product.product_category).then(()=> {
       this.editProductModal?.show();
     });
@@ -92,10 +90,9 @@ export class ProductsComponent {
   }
 
   async onSubmitEditProduct(editProductForm: NgForm) {
-    console.log('edit')
     if (editProductForm.invalid) { return; }
     else {
-      console.log(this.selectedFile);
+      //console.log(this.selectedFile);
       this._products.updateProduct(this.productId, this.product, this.selectedFile).then(()=> {
         this.editProductModal?.hide();
         this.selectedFile = undefined;
@@ -129,14 +126,12 @@ export class ProductsComponent {
   }
 
   activateSubcategorySelect(value: string) {
-    console.log(value)
     const categoriaSeleccionada = this.categoriesList.find(categoria => categoria.category_id === value);
 
     if (categoriaSeleccionada) {
       // Filtrar las subcategorías de la categoría seleccionada
       this.subcategoriesList = categoriaSeleccionada.subcategories.filter((subcategoria:any) => subcategoria.subcategory_status === 'active');
     }
-    console.log(this.subcategoriesList);
     
     const selectSubcategorias = document.getElementById('ntProductSubcategory') as HTMLSelectElement;
     selectSubcategorias.disabled = true;

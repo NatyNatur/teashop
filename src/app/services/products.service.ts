@@ -41,7 +41,6 @@ export class ProductsService {
     const product_imageName = selectedFile.name;
     const path = `products/${productRef.id}/${selectedFile.name}`;
     const storageRef = ref(this.storage, path)
-    console.log(storageRef)
     try {
       await uploadBytes(storageRef, selectedFile);
       const product_imageUrl = await getDownloadURL(storageRef);
@@ -157,6 +156,42 @@ export class ProductsService {
         const productos: any[] = [];
 
         productosSnapshot.forEach((doc) => {
+          const dataDoc = doc.data();
+          const id = doc.id;
+          productos.push({ id, ...dataDoc });
+        });
+    
+        return productos;
+      } catch (error) {
+        console.error('Error al recuperar productos:', error);
+        throw error;
+      }
+    }
+
+    
+    async getProductsByCategoryAndSub(id: string) {
+      try {
+        const q = query(collection(this.firestore, 'products'), where('product_category', '==', id));
+        const r = query(collection(this.firestore, 'products'), where('product_subcategory', '==', id))
+        const [productosSnapshotCat, productosSnapshotSubCat] = await Promise.all([
+          getDocs(q),
+          getDocs(r)
+        ]);
+    
+        const productos: any[] = [];
+
+        // const combinedResults = [
+        //   ...categoriesSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
+        //   ...subcategoriesSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        // ];
+
+        productosSnapshotCat.forEach((doc) => {
+          const dataDoc = doc.data();
+          const id = doc.id;
+          productos.push({ id, ...dataDoc });
+        });
+
+        productosSnapshotSubCat.forEach((doc) => {
           const dataDoc = doc.data();
           const id = doc.id;
           productos.push({ id, ...dataDoc });

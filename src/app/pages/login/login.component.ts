@@ -32,5 +32,6 @@ export class LoginComponent {
       // guard redirige si usuario no es admin
       this._router.navigateByUrl('/cliente');
     }
+    this._loaderService.loaderOff();
   }
 }

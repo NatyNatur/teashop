@@ -40,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
     this._loader.loaderOn();
 
     this._products.readProducts().then((res: any) => {
-      console.log(res);
+      //console.log(res);
       this.productsList = res;
       this._loader.loaderOff();
       this.selectProduct();
@@ -50,15 +50,11 @@ export class ProductDetailComponent implements OnInit {
   selectProduct() {
     const routeParams = this._route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get('productId');
-    console.log(productIdFromRoute);
+    //console.log(productIdFromRoute);
 
     this.product = this.productsList.find((product: any) => product.id === productIdFromRoute);
     this.productStock = this.product!.product_stock;
     this.isReady = true;
-  }
-
-  seeMore() {
-    console.log('lala');
   }
 
   addToCart(product: Product, quantity: number) {

@@ -40,16 +40,6 @@ export class UserInformationComponent implements OnInit {
     }
   }
 
-  waitALitte() {
-    setTimeout(() => {
-      this.loadUserData()
-    }, 3000);
-
-    setTimeout(()=> {
-      this.createUserDataForm();
-    }, 5000)
-  }
-
   async waitForItemInLocalStorage(key: string): Promise<string> {
     return new Promise((resolve) => {
       const checkLocalStorage = () => {
@@ -57,7 +47,7 @@ export class UserInformationComponent implements OnInit {
         if (item) {
           resolve(item);
         } else {
-          setTimeout(checkLocalStorage, 100); // Revisa nuevamente en 100 milisegundos
+          setTimeout(checkLocalStorage, 100); // Revisar nuevamente en 100 milisegundos
         }
       };
       checkLocalStorage();

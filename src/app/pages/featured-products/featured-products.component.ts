@@ -19,25 +19,12 @@ export class FeaturedProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFeaturedProducts();
-
   }
 
   getFeaturedProducts() {
     this._products.getFeaturedProducts().then((res: any) => {
-      console.log(res);
       this.featuredProductsList = res;
     });
-  }
-
-  addToCart2(product: Product) {
-    console.log(product);
-    if (!this._cart.checkProductInCart(product)) {
-      const productInCart: ProductInCart = this._cart.convertProductToProductInCart(product);
-      productInCart.quantity = 1;
-      this._cart.addToCart(productInCart);
-      console.log(this._cart.getCart());
-      this._toastr.success('Producto agregado a tu carrito')
-    }
   }
 
   addToCart(product: Product) {

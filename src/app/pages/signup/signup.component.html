@@ -1,6 +1,6 @@
-<div class="container-fluid ntContainer">
-    <div class="row justify-content-center align-content-center ff-vollkorn pt-0 pt-lg-5">
-        <div class="col-11 col-md-6 col-lg-6 col-xl-4 p-3  animate__animated animate__fadeInRight">
+<div class="container ntContainer">
+    <div class="row justify-content-center align-content-center ff-vollkorn pt-0 pt-lg-5 overflow-hidden">
+        <div class="col-11 col-md-8 col-lg-8 col-xl-6 p-3  animate__animated animate__fadeInRight">
             <form class="row" (ngSubmit)="onSubmitSignUp(signUpForm)" #signUpForm="ngForm" id="signUpForm">
                 <h4 class="text-center ls-3 mb-4 fw-bold text-uppercase">Regístrate en naturtea</h4>
                 <div class="col-12 col-lg-6">
@@ -66,7 +66,7 @@
                 <button type="submit" class="btn btn-nt-primary w-100">Registrar</button>
             </form>
             <div class="mt-5">
-                <h5 class="text-center">¿Ya tienes cuenta? <a routerLink="/ingresa"
+                <h5 class="text-center">¿Ya tienes cuenta? <br class="d-md-none"> <a routerLink="/ingresa"
                         class="text-decoration-none fc-brand fw-bold">Inicia sesión</a></h5>
             </div>
         </div>

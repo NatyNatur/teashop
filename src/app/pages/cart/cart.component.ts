@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Product, ProductInCart } from 'src/app/models/product.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -8,13 +10,17 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-
   productList: ProductInCart[] = [];
   productQuantity : number = 0;
   subtotal: number = 0;
   exceedsStock: boolean = false;
+  @ViewChild('modalConfirm') modalConfirm?: ModalDirective;
+  @ViewChild('isNotAuthenticated') isNotAuthenticated?: ModalDirective;
+  @ViewChild('doesntHaveAnAccount') doesntHaveAnAccount?: ModalDirective;
 
-  constructor( private _cart: CartService) {
+
+  constructor( private _cart: CartService, 
+    private _auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -28,7 +34,6 @@ export class CartComponent implements OnInit {
   }
 
   onChangeQuantity(updatedValue: number, product: ProductInCart) {
-    console.log(updatedValue)
     if (updatedValue != null && updatedValue <= product.product_stock) {
       this.exceedsStock = false;
     }
@@ -53,5 +58,28 @@ export class CartComponent implements OnInit {
   deleteFromCart(product: ProductInCart) {
     this._cart.removeProduct(product);
     this.addSubtotal();
+  }
+
+  emptyCart() {
+    this._cart.emptyCart();
+    this.productList = this._cart.getCart();
+  }
+
+  confirm(): void {
+    let token = localStorage.getItem('token') || '';
+    let isAuthenticated = this._auth.isAuthenticated();
+    if (token === '') {
+      this.modalConfirm?.hide();
+      this.doesntHaveAnAccount?.show();
+    }
+    else {
+      if (isAuthenticated) {
+        console.log('crear y rutear');
+      }
+      else {
+        this.modalConfirm?.hide();
+        this.isNotAuthenticated?.show();
+      }
+    }
   }
 }

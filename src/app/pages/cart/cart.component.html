@@ -54,6 +54,14 @@
                     <div class="col-12 col-lg-6"></div>
                     <div class="col-12 col-lg-6 text-end">
                         <h4>Subtotal: $ {{subtotal | thousands}}</h4>
+                        <p>Precios con IVA incluido.</p>
+                    </div>
+                    <div class="col-12 col-lg-6"></div>
+                    <div class="col-12 col-lg-6 text-end">
+                        <button type="button" class="btn btn-nt-secondary me-3" (click)="emptyCart()"> <span
+                                class="fw-semibold">vaciar <span class="d-none d-md-inline">carrito</span> </span></button>
+                        <button type="button" class="btn btn-nt-primary" (click)="modalConfirm.show()"> <span
+                                class="fw-semibold">finalizar pedido</span></button>
                     </div>
                 </div>
             </div>
@@ -62,12 +70,60 @@
                     <div class="col-12 text-center pt-5">
                         <h4>No hay productos en tu carrito.</h4>
                         <a class="fc-lightbrand text-decoration-none cartRemove" [routerLink]="['/']">
-                        Volver al Inicio
-                    </a>
+                            Volver al Inicio
+                        </a>
                     </div>
                 </div>
             </ng-template>
+        </div>
+    </div>
 
+    <div class="modal fade" bsModal #modalConfirm="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>¿Quieres continuar y realizar el pedido?</p>
+                    <button type="button" class="btn btn-nt-secondary me-3"
+                        (click)="modalConfirm.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-nt-primary" (click)="confirm()">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #isNotAuthenticated="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>Tu sesión ha expirado, por favor ingresa nuevamente.</p>
+                    <button type="button" class="btn btn-nt-secondary me-3"
+                        (click)="isNotAuthenticated.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-nt-primary" [routerLink]="['/ingresa']">ir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #doesntHaveAnAccount="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>Necesitas cuenta para continuar, ¿quieres crearte una?</p>
+
+
+                    <div class="d-grid gap-2 d-md-block">
+                        <button type="button" class="btn btn-nt-secondary me-md-3"
+                            (click)="doesntHaveAnAccount.hide()">Cancelar</button>
+                        <button type="button" class="btn btn-nt-brand me-md-3" [routerLink]="['/ingresa']">ya tengo
+                            cuenta</button>
+                        <button type="button" class="btn btn-nt-primary"
+                            [routerLink]="['/registro']">registrarme</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
