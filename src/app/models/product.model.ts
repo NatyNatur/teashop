@@ -26,3 +26,11 @@ export class ProductInCart {
     product_imageName: string = '';
     quantity: number = 0;
 }
+
+export class SimpleProduct {
+    id?: string = '';
+    product_name: string = '';
+    product_price: number = 0;
+    product_imageUrl: string = '';
+    quantity: number = 0;
+}

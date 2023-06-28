@@ -16,6 +16,7 @@ import { UnderConstructionComponent } from './pages/under-construction/under-con
 import { CategoryComponent } from './pages/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,11 @@ const routes: Routes = [
     path: 'carrito',
     title: 'Carrito | naturtea',
     component: CartComponent
+  },
+  {
+    path: 'checkout',
+    title: 'Checkout | naturtea',
+    component: CheckoutComponent
   },
   {
     path: '404',

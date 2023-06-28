@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { Product, ProductInCart } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -13,7 +15,10 @@ export class FeaturedProductsComponent implements OnInit {
 
   featuredProductsList: Product[] = [];
 
-  constructor(private _products: ProductsService, private _cart: CartService, private _toastr: ToastrService) {
+  constructor(private _products: ProductsService, 
+    private _cart: CartService, 
+    private _toastr: ToastrService,
+    private _router: Router) {
 
   }
 
@@ -39,6 +44,13 @@ export class FeaturedProductsComponent implements OnInit {
       productInCart.quantity = 1;
       this._cart.addToCart(productInCart);
     }
-    this._toastr.success('Producto agregado a tu carrito');
+    this._toastr.success('Producto agregado a tu carrito').onTap
+    .pipe(take(1))
+    .subscribe(() => this.toasterClickedHandler());;
+  }
+
+  toasterClickedHandler() {
+    console.log('Toastr clicked');
+    this._router.navigate(['/carrito']);
   }
 }

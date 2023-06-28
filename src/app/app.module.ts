@@ -10,6 +10,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { environment } from 'src/environments/environment';
 
@@ -42,6 +44,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ import { UserInformationComponent } from './pages/welcome/user-information/user-
     UnderConstructionComponent,
     CategoryComponent,
     UserInformationComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +87,8 @@ import { UserInformationComponent } from './pages/welcome/user-information/user-
     AlertModule.forRoot(),
     ToastrModule.forRoot(),
     CarouselModule.forRoot(),
+    TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
     ReactiveFormsModule 
   ],
   providers: [],

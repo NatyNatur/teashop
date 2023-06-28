@@ -17,3 +17,7 @@
 .cartTable {
     min-height: 40vh;
 }
+
+.cartTable .input-group .productInput {
+    min-width: 3rem;
+}

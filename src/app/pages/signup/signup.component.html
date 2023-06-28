@@ -41,21 +41,40 @@
                     </span>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <label for="ntSignupAddres" class="form-label">Dirección</label>
-                    <input type="text" [(ngModel)]="user.direccion" minlength="6" name="direccion" required
-                        class="form-control" id="ntSignupAddres" placeholder="Avenida Falsa 123">
+                    <label for="ntSignupRegion" class="form-label">Región </label>
+                    <select class="form-select" aria-label="ntSignupRegion" name="region" [(ngModel)]="user.region"
+                        (change)="onChangeRegion($event)">
+                        <option selected disabled value="">Seleccionar</option>
+                        <option *ngFor="let region of regions; let i = index" [value]="region.region">
+                            {{ region.region }}</option>
+                    </select>
                     <span class="messageContainer">
-                        <span *ngIf="signUpForm.submitted && signUpForm.controls['direccion'].errors"
-                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu dirección.</span>
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['region'].value == ''"
+                            class="text-danger animate__animated animate__fadeIn">Recuerda seleccionar una
+                            región.</span>
                     </span>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <label for="ntSignupCommune" class="form-label">Comuna</label>
-                    <input type="text" [(ngModel)]="user.comuna" name="comuna" required class="form-control"
-                        id="ntSignupCommune" placeholder="Springfield">
+                    <label for="ntSignupCommune" class="form-label">Comuna </label>
+                    <select class="form-select" aria-label="ntSignupCommune" name="comuna" [(ngModel)]="user.comuna">
+                        <option selected disabled value="">Seleccionar</option>
+                        <option *ngFor="let comuna of communes; let i = index" [value]="comuna">
+                            {{ comuna }}</option>
+                    </select>
                     <span class="messageContainer">
-                        <span *ngIf="signUpForm.submitted && signUpForm.controls['comuna'].errors"
-                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu comuna.</span>
+                        <span *ngIf="signUpForm.submitted && signUpForm.controls['comuna'].value == ''"
+                            class="text-danger animate__animated animate__fadeIn">Recuerda seleccionar una
+                            región.</span>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label for="ntSignupAddres" class="form-label">Dirección</label>
+                    <input type="text" [(ngModel)]="user.direccion" name="direccion" required class="form-control"
+                        id="ntSignupAddres" placeholder="Avenida Falsa 123">
+                    <span class="messageContainer">
+                        <span
+                            *ngIf="(signUpForm.submitted && signUpForm.controls['direccion'].value == '') || (signUpForm.submitted &&  signUpForm.controls['direccion'].value.length < 6)"
+                            class="text-danger animate__animated animate__fadeIn">Debes ingresar tu dirección.</span>
                     </span>
                 </div>
                 <div class="mb-3 form-check ms-3">

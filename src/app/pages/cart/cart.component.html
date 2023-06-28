@@ -1,18 +1,18 @@
 <div class="container ntContainer">
-    <div class="row pt-3">
-        <div class="col-12">
+    <div class="row pt-3 justify-content-between">
+        <div class="col-12 col-lg-8 pe-lg-5">
             <h3 class="py-3">Carrito de compra</h3>
             <div *ngIf="productList.length > 0; else noProductsInCart">
                 <div class="row">
                     <div class="table-responsive cartTable">
                         <table class="table align-middle">
                             <thead>
-                                <tr class="fc-brand">
+                                <tr class="fc-lightblue">
                                     <th scope="col">Producto</th>
                                     <th></th>
                                     <th scope="col" class="text-end">Precio</th>
-                                    <th scope="col" class="text-center">Cantidad</th>
-                                    <th scope="col" class="text-end" style="width: 200px;">Total</th>
+                                    <th scope="col" class="text-center" style="width: 15vh;">Cantidad</th>
+                                    <th scope="col" class="text-end" style="width: 150px;">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,36 +32,30 @@
                                     </td>
                                     <td class="text-end">${{product.product_price | thousands}}</td>
                                     <td class="text-center">
-                                        <div class="col-12 col-lg-4 mx-auto">
+                                        <div class="col-12 col-lg-4 mx-auto d-none">
                                             <input type="number" [(ngModel)]="product.quantity"
                                                 (blur)="checkQuantity(product)" placeholder="0"
                                                 (ngModelChange)='onChangeQuantity($event, product)'
                                                 class="form-control text-center" aria-label="Cantidad">
                                         </div>
-                                        <div class="alertContainer">
+                                        <div class="alertContainer d-none" #alertContainers>
                                             <span *ngIf="product.quantity > product.product_stock"
                                                 class="text-danger animate__animated animate__fadeIn">Excedes el
                                                 stock.</span>
+                                        </div>
+                                        <div class="input-group flex-nowrap mx-auto">
+                                            <button class="btn btn-nt-secondary" (click)="decreaseProduct(product)"><i
+                                                    class="bi bi-dash-lg"></i></button>
+                                            <input type="number" [(ngModel)]="product.quantity" disabled
+                                                class="form-control text-center productInput" aria-label="Cantidad">
+                                            <button class="btn btn-nt-secondary" (click)="increaseProduct(product)"><i
+                                                    class="bi bi-plus-lg"></i></button>
                                         </div>
                                     </td>
                                     <td class="text-end">${{ product.product_price*product.quantity | thousands}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col-12 col-lg-6"></div>
-                    <div class="col-12 col-lg-6 text-end">
-                        <h4>Subtotal: $ {{subtotal | thousands}}</h4>
-                        <p>Precios con IVA incluido.</p>
-                    </div>
-                    <div class="col-12 col-lg-6"></div>
-                    <div class="col-12 col-lg-6 text-end">
-                        <button type="button" class="btn btn-nt-secondary me-3" (click)="emptyCart()"> <span
-                                class="fw-semibold">vaciar <span class="d-none d-md-inline">carrito</span> </span></button>
-                        <button type="button" class="btn btn-nt-primary" (click)="modalConfirm.show()"> <span
-                                class="fw-semibold">finalizar pedido</span></button>
                     </div>
                 </div>
             </div>
@@ -76,7 +70,80 @@
                 </div>
             </ng-template>
         </div>
+        <div class="col-12 col-lg-4 border-lg-start ps-lg-5">
+            <div class="row">
+                <h3 class="py-3">Detalle</h3>
+                <div class="col-12 mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Código descuento"
+                            aria-label="Código descuento" [(ngModel)]="discountCode" name="discountCode"
+                            aria-describedby="applycoupon">
+                        <button class="btn btn-nt-primary" type="button" (click)="checkDiscountCode()"
+                            id="applycoupon">aplicar</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-12 text-end mb-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>Subtotal:</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6>$ {{subtotal | thousands}}</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6>Descuento:</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6>{{discountRate}} %</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="mb-0">Monto:</h6>
+                        </div>
+                        <div class="col-6 align-self-end">
+                            <h6 class="mb-0">$ {{discountAmount | thousands}}</h6>
+                        </div>
+                        <div class="col-12 mb-3"></div>
+                        <hr>
+                        <div class="col-6">
+                            <h4>Total:</h4>
+                        </div>
+                        <div class="col-6">
+                            <h4>$ {{total | thousands}}</h4>
+                        </div>
+                        <p class="fs-7">Precios con IVA incluido.</p>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <button type="button" class="btn btn-nt-brand w-100" (click)="checkStock()"
+                        [disabled]="productList.length === 0">
+                        <span class="fw-semibold">realizar pedido</span>
+                    </button>
+                </div>
+                <div class="col-12 text-center mb-3">
+                    <a type="button" (click)="showModalCart()">
+                        <span class="">vaciar
+                            <span class="d-none d-md-inline">carrito</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="modal fade" bsModal #modalCart="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>¿Deseas vaciar tu carrito?</p>
+                    <button type="button" class="btn btn-nt-secondary me-3" (click)="modalCart.hide()">cancelar</button>
+                    <button type="button" class="btn btn-nt-primary" (click)="emptyCart()">vaciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="modal fade" bsModal #modalConfirm="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
         aria-labelledby="dialog-static-name">
@@ -100,7 +167,7 @@
                     <p>Tu sesión ha expirado, por favor ingresa nuevamente.</p>
                     <button type="button" class="btn btn-nt-secondary me-3"
                         (click)="isNotAuthenticated.hide()">Cancelar</button>
-                    <button type="button" class="btn btn-nt-primary" [routerLink]="['/ingresa']">ir</button>
+                    <button type="button" class="btn btn-nt-primary" [routerLink]="['/ingresa']">ingresar</button>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ export class NewUser {
     apellido: string = '';
     direccion: string = '';
     comuna: string = '';
-    telefono: number = 0;
+    region: string = '';
+    telefono: string = '';
     tipoUsuario: string = 'cliente';
 }

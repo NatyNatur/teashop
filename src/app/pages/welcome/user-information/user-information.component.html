@@ -17,11 +17,17 @@
                     <h6> Información de contacto</h6>
                     <p class="mb-0">{{userData.nombre}} {{userData.apellido}}</p>
                     <p class="mb-0">{{userData.email}}</p>
+                    <p class="mb-0" *ngIf="userData.telefono > 0; else noPhone">{{userData.telefono}}</p>
+                    <ng-template #noPhone>
+                        <p class="mb-0">No hay teléfono registrado</p>
+                    </ng-template>
+                    
                 </div>
                 <div class="col-12 col-lg-6 mb-2">
                     <h6>Dirección</h6>
                     <p class="mb-0">{{userData.direccion}}</p>
                     <p class="mb-0">{{userData.comuna}}</p>
+                    <p class="mb-0">{{userData.region}}</p>
                 </div>
             </div>
         </div>
@@ -42,8 +48,8 @@
                     <form class="row" [formGroup]="userProfile" (ngSubmit)="onSubmitEditUserData();"
                         id="editUserDataForm">
                         <div class="col-12 col-lg-6">
-                            <label for="ntSignupName" class="form-label">Nombre</label>
-                            <input type="text" formControlName="nombre" class="form-control" id="ntSignupName"
+                            <label for="ntEditName" class="form-label">Nombre</label>
+                            <input type="text" formControlName="nombre" class="form-control" id="ntEditName"
                                 placeholder="Juanita">
                             <span class="messageContainer">
                                 <span *ngIf="(name?.dirty || name?.touched) && name?.errors"
@@ -52,8 +58,8 @@
                             </span>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <label for="ntSignupLastname" class="form-label">Apellido</label>
-                            <input type="text" formControlName="apellido" class="form-control" id="ntSignupLastname"
+                            <label for="ntEditLastname" class="form-label">Apellido</label>
+                            <input type="text" formControlName="apellido" class="form-control" id="ntEditLastname"
                                 placeholder="Pérez-Cotapos">
                             <span class="messageContainer">
                                 <span *ngIf="(lastname?.dirty || lastname?.touched) && lastname?.errors"
@@ -62,10 +68,52 @@
                             </span>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <label for="ntSignupEmail" class="form-label">Correo electrónico </label>
-                            <input type="email" formControlName="email" class="form-control" id="ntSignupEmail"
+                            <label for="ntEditEmail" class="form-label">Correo electrónico </label>
+                            <input type="email" formControlName="email" class="form-control" id="ntEditEmail"
                                 placeholder="juanitapc@lala.com">
                             <span class="messageContainer">
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditPhone" class="form-label">Teléfono</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="phonecod">+56</span>
+                                <input type="text" formControlName="telefono" class="form-control" id="ntEditPhone"
+                                placeholder="912345678" aria-describedby="phonecod">
+                            </div>
+                            <span class="messageContainer">
+                                <span *ngIf="(phone?.dirty || phone?.touched) && phone?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                    número de celular.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditRegion" class="form-label">Región</label>
+                            <select class="form-select" aria-label="ntEditRegion" name="region" formControlName="region"
+                                (change)="onChangeRegion($event)">
+                                <option selected disabled value="">Seleccionar</option>
+                                <option *ngFor="let region of regions; let i = index" [value]="region.region">
+                                    {{ region.region }}</option>
+                            </select>
+                            <span class="messageContainer">
+                                <span  *ngIf="(region?.dirty || region?.touched) && region?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Recuerda seleccionar una
+                                    región.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditCommune" class="form-label">Comuna </label>
+                            <select class="form-select" aria-label="ntEditCommune" formControlName="comuna">
+                                <option selected disabled value="">Seleccionar</option>
+                                <option *ngFor="let comuna of communes; let i = index" [value]="comuna">
+                                    {{ comuna }}</option>
+                            </select>
+                            <span class="messageContainer">
+                                <span class="messageContainer">
+                                    <span *ngIf="(commune?.dirty || commune?.touched) && commune?.errors"
+                                        class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                        comuna.</span>
+                                </span>
                             </span>
                         </div>
                         <div class="col-12 col-lg-6">
@@ -76,16 +124,6 @@
                                 <span *ngIf="(address?.dirty || address?.touched) && address?.errors"
                                     class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
                                     dirección.</span>
-                            </span>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <label for="ntSignupCommune" class="form-label">Comuna</label>
-                            <input type="text" formControlName="comuna" class="form-control" id="ntSignupCommune"
-                                placeholder="Springfield">
-                            <span class="messageContainer">
-                                <span *ngIf="(commune?.dirty || commune?.touched) && commune?.errors"
-                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
-                                    comuna.</span>
                             </span>
                         </div>
                         <div class="visually-hidden">

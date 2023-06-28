@@ -1,0 +1,230 @@
+<div class="container ntContainer">
+    <div class="row pt-3 justify-content-between">
+        <div class="col-12 col-lg-8 pe-lg-5">
+            <h3 class="pt-3">Detalles del pedido</h3>
+            <div class="row">
+                <div class="col-12 col-lg-6 pt-3">
+                    <p class="fs-5">1. Opciones de pago</p>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="transferencia"
+                                [(ngModel)]="paymentOption" (ngModelChange)="selectPaymentOption()"
+                                value="transferencia">
+                            <label class="form-check-label" for="transferencia">
+                                Transferencia o depósito bancario
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="contraentrega"
+                                [disabled]="userData?.region != RM" [(ngModel)]="paymentOption"
+                                (ngModelChange)="selectPaymentOption()" value="contra">
+                            <label class="form-check-label" for="contraentrega">
+                                Pago contra entrega
+                            </label>
+                            <span class="ms-3" placement="auto" tooltip="Esto significa que nuestro repartidor solicitará el pago del pedido cuando llegue a tu hogar, con tarjeta de crédito o débito. Sólo es
+                        válido para la RM.">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 pt-3">
+                    <p class="fs-5">2. Opciones de envío</p>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shippingOption" id="domicilio"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                (ngModelChange)="selectShippingOption('A domicilio (por pagar)')" value="domicilio">
+                            <label class="form-check-label" for="domicilio">
+                                A domicilio (por pagar)
+                            </label>
+                            <span class="ms-3" placement="auto"
+                                tooltip="Enviamos directo a tu domicilio a través de Starken quienes cobrarán al llegar.">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shippingOption" id="sucursalST"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                (ngModelChange)="selectShippingOption('Sucursal Starken')" value="sucursalST">
+                            <label class="form-check-label" for="sucursalST">
+                                Sucursal Starken (por pagar)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shippingOption" id="sucursalCE"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                (ngModelChange)="selectShippingOption('Sucursal Chilexpress')" value="sucursalCE">
+                            <label class="form-check-label" for="sucursalCE">
+                                Sucursal Chilexpress (por pagar)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shippingOption" id="entregaRM"
+                                [disabled]="userData?.region != RM" [(ngModel)]="shippingOption"
+                                (ngModelChange)="selectShippingOption('Entrega a domicilio')" value="entregaRM">
+                            <label class="form-check-label" for="entregaRM">
+                                Entrega en domicilio $2.990
+                            </label>
+                            <span class="ms-3" placement="auto" tooltip="Sólo válido para la RM.">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 pt-5">
+                    <p class="fs-5">Datos envío</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="mb-0">{{userData?.nombre}} {{userData?.apellido}}</p>
+                            <p class="mb-0">{{userData?.direccion}}, {{userData?.comuna}}</p>
+                            <p class="mb-0">{{userData?.region}}</p>
+                            <p class="mb-0" *ngIf="userData?.telefono > 0; else noPhone">+56 {{userData.telefono}}</p>
+                            <ng-template #noPhone>
+                                <form class="row pt-3" [formGroup]="userProfile" (ngSubmit)="onSubmitEditUserData();"
+                                    id="addPhone">
+                                    <label for="ntSignupPhone" class="form-label">Por favor, ingresa tu teléfono</label>
+                                    <div class="col-8">
+                                        <div class="input-group col-6">
+                                            <span class="input-group-text" id="phonecod">+56</span>
+                                            <input type="text" formControlName="telefono" class="form-control"
+                                                id="ntSignupPhone" placeholder="912345678" aria-describedby="phonecod">
+                                        </div>
+                                        <span class="messageContainer">
+                                            <span *ngIf="(phone?.dirty || phone?.touched) && phone?.errors"
+                                                class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                                número de celular.</span>
+                                        </span>
+
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" form="addPhone" class="btn btn-nt-primary">
+                                            <span class="d-md-none"><i class="bi bi-check2"></i></span>
+                                            <span class="d-none d-md-inline">agregar</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </ng-template>
+                            <p class="mb-0"> {{shippingOptionPP}} {{officeOption}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 pt-5">
+                    <form class="row pt-3 animate__animated animate__fadeIn" [formGroup]="addOffice"
+                        (ngSubmit)="onSubmitAddOffice();" id="addOffice" *ngIf="showAddOffice">
+                        <label for="ntaddOffice" class="form-label">Por favor, ingresa el nombre de tu sucursal más
+                            cercana:</label>
+                        <div class="col-8 col-md-6">
+                            <div class="input-group col-6">
+                                <input type="text" formControlName="sucursal" class="form-control" id="ntaddOffice"
+                                    placeholder="Nombre" aria-describedby="ntaddOffice">
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-6">
+                            <button type="submit" form="addOffice" class="btn btn-nt-primary">
+                                <span class="d-md-none"><i class="bi bi-check2"></i></span>
+                                <span class="d-none d-md-inline">agregar</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 py-5">
+                    <a type="button" class="btn btn-nt-secondary" [routerLink]="['/carrito']">Volver al carrito</a>
+                </div>
+            </div>
+        </div>
+        <div class="col 12 col-lg-4 border-lg-start ps-lg-5">
+            <h3 class="py-3">Resumen</h3>
+            <div class="table-responsive cartTable">
+                <table class="w-100 fs-7 ">
+                    <tbody>
+                        <tr colspan="3" *ngFor="let product of productList; let i = index;">
+                            <td>
+                                <p class="fc-darkblue mb-0">{{product.quantity}} x {{product.product_name}}</p>
+                            </td>
+                            <td class="text-end align-top">${{product.product_price | thousands}}</td>
+                            <td class="text-end align-top" [width]="100">= ${{ product.product_price*product.quantity |
+                                thousands}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row justify-content-between fs-7">
+                <div class="col">
+                    <p class="mb-0">Subtotal:</p>
+                </div>
+                <div class="col">
+                    <p class="mb-0">$ {{infoCarrito?.subtotal | thousands}}</p>
+                </div>
+                <div class="w-100"></div>
+                <div class="col" *ngIf="infoCarrito?.datosCupon.nombre != '';">
+                    <p class="mb-0">Cupón utilizado:</p>
+                </div>
+                <div class="col" *ngIf="infoCarrito?.datosCupon.nombre != '';">' <span
+                        class="font-monospace bg-secondary bg-opacity-25">{{infoCarrito?.datosCupon.nombre}}</span> '</div>
+                <div class="w-100"></div>
+                <div class="col" *ngIf="infoCarrito?.datosCupon.monto != 0;">
+                    <p class="mb-0">Porcentaje descuento:</p>
+                </div>
+                <div class="col" *ngIf="infoCarrito?.datosCupon.monto != 0;">
+                    <p class="mb-0">{{infoCarrito?.datosCupon.monto}} % </p>
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <p class="mb-0">Envío:</p>
+                </div>
+                <div class="col">
+                    <p class="mb-0">$ {{shippingCost | thousands}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row justify-content-between fs-7">
+                <div class="col">
+                    <p class="mb-0">Método de pago:</p>
+                </div>
+                <div class="col">
+                    <p class="mb-0"> <span *ngIf="paymentOption === 'transferencia' else mpContraentrega">
+                            Transferencia.</span></p>
+                    <ng-template #mpContraentrega>Pago contra entrega.</ng-template>
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <p class="mb-0">Envío:</p>
+                </div>
+                <div class="col">
+                    <p class="mb-0">{{shippingOptionPP}} {{officeOption}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h4 class="mb-0">Total:</h4>
+                </div>
+                <div class="col">
+                    <h4 class="mb-0">$ {{infoCarrito?.total + shippingCost | thousands}}</h4>
+                </div>
+
+            </div>
+            <div class="row py-5">
+                <div class="col-12">
+                    <button type="button" class="btn btn-nt-brand w-100" (click)="modalConfirmOrder.show()">finalizar pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #modalConfirmOrder="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p>¿Quieres continuar y finalizar el pedido?</p>
+                <button type="button" class="btn btn-nt-secondary me-3"
+                    (click)="modalConfirmOrder.hide()">Cancelar</button>
+                <button type="button" class="btn btn-nt-primary" (click)="confirmOrder()">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -84,6 +84,7 @@ export class AuthService {
         email: newUser['email'],
         direccion: newUser['direccion'],
         comuna: newUser['comuna'],
+        region: newUser['region'],
         tipoUsuario: newUser['tipoUsuario']
       })
       return true;
@@ -104,7 +105,9 @@ export class AuthService {
         email: userForm['email'],
         direccion: userForm['direccion'],
         comuna: userForm['comuna'],
-        tipoUsuario: userForm['tipoUsuario']
+        region: userForm['region'],
+        tipoUsuario: userForm['tipoUsuario'],
+        telefono: userForm['telefono']
       });
       this._toastr.success('Información actualizada correctamente', 'Listo');
       return true;
@@ -112,6 +115,22 @@ export class AuthService {
     catch (error) {
       console.log(error);
       this._toastr.error('Hubo un error, Información no actualizada', 'Error')
+      return false;
+    }
+  }
+
+  async updatePhone(userForm: NewUser) {
+    try {
+      const user = this._auth.currentUser;
+      const userDocRef = doc(this._firestore, `usuarios/${user?.uid}`);
+      await updateDoc(userDocRef, {
+        telefono: userForm['telefono']
+      });
+      this._toastr.success('Teléfono actualizado correctamente', 'Listo');
+      return true;
+    } catch (error) {
+      console.log(error);
+      this._toastr.error('Hubo un error, Teléfono no actualizado', 'Error');
       return false;
     }
   }

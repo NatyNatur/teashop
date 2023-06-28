@@ -6,6 +6,8 @@ import { NewUser } from 'src/app/models/new-user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 
+import regionesData from  'src/assets/rsc/comunas-regiones.json';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,6 +16,8 @@ import { LoaderService } from 'src/app/services/loader.service';
 export class SignupComponent {
   user: NewUser = new NewUser();
   rememberNewUser: boolean = false;
+  regions: any[] = regionesData.regiones;
+  communes: string[] = [];
 
   constructor(private _router: Router, 
     private _authService: AuthService,
@@ -23,6 +27,7 @@ export class SignupComponent {
   }
 
   async onSubmitSignUp(form: NgForm) {
+    console.log(form);
     if (form.invalid) { return; }
     this._loader.loaderOn();
     const user = await this._authService.signUp(this.user);
@@ -36,5 +41,11 @@ export class SignupComponent {
       this._router.navigateByUrl('/ingresa');
     }
     this._loader.loaderOff();
+  }
+  onChangeRegion(event: any) {
+    const regionName = event.target.value;
+    console.log(regionName)
+    const region = this.regions.find(region => region.region === regionName);
+    this.communes = region ? [...region.comunas] : [];
   }
 }

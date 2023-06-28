@@ -36,6 +36,10 @@ body {
   font-weight: 500;
 }
 
+.fs-7 {
+  font-size: .75rem !important;
+}
+
 .btn-nt-darkprimary {
   --bs-btn-color: var(--nt-white);
   --bs-btn-bg: var(--nt-darkblue);
@@ -212,6 +216,24 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.popover-arrow {
+  position: absolute;
+}
+
+.tooltip {
+  position: absolute;
+}
+
+.tooltip-arrow {
+  position: absolute;
+}
+
 @media screen and (min-width: 992px) {
   .ntContainer {
     min-height: calc(100vh - 95px - 220px);
@@ -220,5 +242,9 @@ input[type="number"] {
   .messageContainer {
     min-height: 1.7rem;
     display: block;
+  }
+
+  .border-lg-start {
+    border-left: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
   }
 }
