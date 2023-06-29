@@ -1,0 +1,9 @@
+.userCard {
+    background-color: #E8F2FE;
+}
+
+.productsRow .img-fit {
+    width: 100%;
+    height: 3rem;
+    object-fit: cover;
+}

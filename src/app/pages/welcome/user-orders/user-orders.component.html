@@ -1,0 +1,158 @@
+<div class="container ntContainer">
+    <div class="row mb-3">
+        <div class="col-12 mb-md-2">
+            <div class="row p-3 p-lg-4 userCard" *ngIf="isDone">
+                <div class="row mb-3 pb-2">
+                    <div class="col-7">
+                        <h4 class="fc-darkblue text-uppercase">Mis pedidos</h4>
+                    </div>
+                </div>
+                <div class="col-12 mb-2">
+                    <div class="table-responsive ntFixedTable">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col" class="text-center">Fecha</th>
+                                    <th scope="col" class="text-center">Estado</th>
+                                    <th scope="col" class="text-center">Envío</th>
+                                    <th scope="col" class="text-center">Detalle</th>
+                                    <th scope="col" class="text-center">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <ng-container *ngFor="let order of ordersList; let i = index;">
+                                    <tr colspan="3">
+                                        <td><span class="fs-18p">{{order.short_id}}</span></td>
+                                        <td class="text-center">
+                                            <span class="d-block">{{convertTimestampToDate(order.created_at)}}</span>
+                                            <span class="d-block">{{convertTimestampToTime(order.created_at)}}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            {{order.estado}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{convertShippingOption(order.tipo_envio)}} {{order.sucursal}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" (click)="setOrderDetail(order)"
+                                                class="btn btn-sm btn-warning">
+                                                <span class="fw-semibold">ver</span></button>
+                                        </td>
+                                        <td class="text-end">
+                                            $ {{order.total | thousands}}
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- seeOrderDetail -->
+    <div class="modal fade" bsModal #seeOrderDetail="bs-modal"  tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editUserDataModalLabel">Detalle del pedido {{orderDetails.short_id}}
+                    </h4>
+                    <button type="button" class="btn-close" (click)="seeOrderDetail.hide();"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 p-lg-3">
+                    <div class="table-responsive cartTable">
+                        <table class="w-100">
+                            <tbody>
+                                <tr colspan="4" *ngFor="let product of orderDetails.productos; let i = index;">
+                                    <td style="width: 70px;">
+                                        <div class="d-flex productsRow">
+                                            <img src="{{product.product_imageUrl}}" alt="imagen producto"
+                                                class="img-fluid img-fit">
+                                        </div>
+                                    </td>
+                                    <td class="ps-3">
+                                        <p class="fc-darkblue mb-0">{{product.quantity}} x {{product.product_name}}</p>
+                                    </td>
+                                    <td class="text-end">${{product.product_price | thousands}}</td>
+                                    <td class="text-end" [width]="100">= ${{ product.product_price*product.quantity |
+                                        thousands}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <p class="mb-0">Subtotal:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">$ {{orderDetails.subtotal | thousands}}</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col" *ngIf="orderDetails.cupon.nombre != '';">
+                            <p class="mb-0">Cupón utilizado:</p>
+                        </div>
+                        <div class="col" *ngIf="orderDetails?.cupon?.nombre != '';">' <span
+                                class="font-monospace bg-secondary bg-opacity-25">{{orderDetails.cupon.nombre}}</span> '
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col" *ngIf="orderDetails.cupon.monto != 0;">
+                            <p class="mb-0">Porcentaje descuento:</p>
+                        </div>
+                        <div class="col" *ngIf="orderDetails.cupon.monto != 0;">
+                            <p class="mb-0">{{orderDetails.cupon.monto}} % </p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">Envío:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">$ {{orderDetails.envio | thousands}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <p class="mb-0">Método de pago:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0"> <span *ngIf="orderDetails.metodo === 'transferencia' else mpContraentrega">
+                                    Transferencia.</span></p>
+                            <ng-template #mpContraentrega>Pago contra entrega.</ng-template>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">Envío:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">{{convertShippingOption(orderDetails.tipo_envio)}} {{orderDetails.sucursal}}
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <h4 class="mb-0">Total:</h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="mb-0">$ {{orderDetails.total | thousands}}</h4>
+                        </div>
+                    </div>
+                    <div class="row text-center pt-5 fw-semibold">
+                        <p *ngIf="orderDetails.estado === 'creado'">Tu pedido ha sido <span
+                                class="fc-brand">creado</span>, estamos a la espera o revisión del envío de tu
+                            comprobante para proceder con el envío.</p>
+                        <p *ngIf="orderDetails.estado === 'pagado'">Tu pedido ha sido verificado como <span
+                                class="fc-brand">pagado</span>. Te avisaremos cuando enviemos tu pedido.</p>
+                        <p *ngIf="orderDetails.estado === 'enviado'">Tu pedido ya ha sido <span
+                                class="fc-brand">enviado</span>. Revisa en tu correo el número de seguimiento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

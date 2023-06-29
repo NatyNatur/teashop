@@ -17,6 +17,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'mi-cuenta',
         component: UserInformationComponent
+      },
+      {
+        path: 'mis-pedidos',
+        component: UserOrdersComponent
       }
     ],
     canActivate: [AuthGuard],

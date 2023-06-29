@@ -22,6 +22,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "firebase": "^9.22.1",
+    "nanoid": "^4.0.2",
     "ngx-bootstrap": "^10.2.0",
     "ngx-toastr": "^16.2.0",
     "rxjs": "~7.8.0",

@@ -45,6 +45,7 @@ import { UnderConstructionComponent } from './pages/under-construction/under-con
 import { CategoryComponent } from './pages/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
     CategoryComponent,
     UserInformationComponent,
     CheckoutComponent,
+    UserOrdersComponent,
   ],
   imports: [
     BrowserModule,

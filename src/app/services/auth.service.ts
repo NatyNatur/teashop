@@ -28,6 +28,7 @@ export class AuthService {
     localStorage.removeItem('rolInterno');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userData');
+    localStorage.removeItem('userId');
     return signOut(this._auth);
   }
   // Ingresar
@@ -38,6 +39,7 @@ export class AuthService {
       localStorage.setItem('rolInterno', 'cliente');
       this.userCredentials = user;
       const isAdmin = await this.checkIfIsAdmin(user);
+      localStorage.setItem('userId', this.userCredentials.user.uid);
       if (isAdmin) {
         localStorage.setItem('rolInterno', 'admin');
       }
@@ -248,6 +250,7 @@ export class AuthService {
     if (expirationDate > new Date()) {
       return true;
     } else {
+      this.logout();
       return false;
     }
   }

@@ -139,7 +139,6 @@ export class CartComponent implements OnInit {
     }
     else {
       if (isAuthenticated) {
-        console.log('crear y rutear');
         this._router.navigate(['/checkout']);
       }
       else {

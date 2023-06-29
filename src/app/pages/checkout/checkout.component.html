@@ -1,9 +1,9 @@
 <div class="container ntContainer">
     <div class="row pt-3 justify-content-between">
-        <div class="col-12 col-lg-8 pe-lg-5">
-            <h3 class="pt-3">Detalles del pedido</h3>
+        <div class="col-12 col-lg-8 pe-lg-5" *ngIf="!isOrderDone">
+            <h3 class="py-3">Detalles del pedido</h3>
             <div class="row">
-                <div class="col-12 col-lg-6 pt-3">
+                <div class="col-12 col-lg-6">
                     <p class="fs-5">1. Opciones de pago</p>
                     <div>
                         <div class="form-check">
@@ -17,7 +17,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="paymentOption" id="contraentrega"
                                 [disabled]="userData?.region != RM" [(ngModel)]="paymentOption"
-                                (ngModelChange)="selectPaymentOption()" value="contra">
+                                (ngModelChange)="selectPaymentOption()" value="contraentrega">
                             <label class="form-check-label" for="contraentrega">
                                 Pago contra entrega
                             </label>
@@ -28,12 +28,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6 pt-3">
+                <div class="col-12 col-lg-6 pt-3 pt-lg-0">
                     <p class="fs-5">2. Opciones de envío</p>
                     <div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="shippingOption" id="domicilio"
-                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contraentrega'"
                                 (ngModelChange)="selectShippingOption('A domicilio (por pagar)')" value="domicilio">
                             <label class="form-check-label" for="domicilio">
                                 A domicilio (por pagar)
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="shippingOption" id="sucursalST"
-                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contraentrega'"
                                 (ngModelChange)="selectShippingOption('Sucursal Starken')" value="sucursalST">
                             <label class="form-check-label" for="sucursalST">
                                 Sucursal Starken (por pagar)
@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="shippingOption" id="sucursalCE"
-                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contra'"
+                                [(ngModel)]="shippingOption" [disabled]="paymentOption == 'contraentrega'"
                                 (ngModelChange)="selectShippingOption('Sucursal Chilexpress')" value="sucursalCE">
                             <label class="form-check-label" for="sucursalCE">
                                 Sucursal Chilexpress (por pagar)
@@ -133,6 +133,94 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-lg-8 pe-lg-5" *ngIf="isOrderDone">
+            <h3 class="py-3 text-center text-lg-start">¡Pedido recibido exitosamente!</h3>
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <p class="mb-0">Código del pedido:</p>
+                    <h5>{{preOrder.short_id}}</h5>
+                </div>
+                <div class="col-12 col-lg-3 border-lg-start">
+                    <p class="mb-0">A pagar:</p>
+                    <h5>$ {{preOrder.total | thousands}}</h5>
+                </div>
+                <div class="col-12 col-lg-3 border-lg-start">
+                    <p class="mb-0">Método de pago:</p>
+                    <h5> <span *ngIf="preOrder.metodo === 'transferencia' else mpOContraentrega">
+                            Transferencia o depósito bancario.</span></h5>
+                    <ng-template #mpOContraentrega>Pago contra entrega.</ng-template>
+                </div>
+                <div class="col-12 col-lg-3 border-lg-start">
+                    <p class="mb-0">Envío:</p>
+                    <h5>{{convertShippingOption(preOrder.tipo_envio)}} {{preOrder.sucursal}}</h5>
+                </div>
+                <div class="col-12 py-5 text-center" *ngIf="preOrder.metodo !== 'contraentrega'">
+                    <p>Hacemos envíos los días viernes y sábados. Te enviaremos un correo con el número de seguimiento. Recuerda que al llegar tu pedido, deberás pagar el envío.</p>
+                </div>
+            </div>
+            <div class="row"  *ngIf="preOrder.metodo !== 'contraentrega'">
+                <div class="col-12 col-lg-6 pt-5">
+                    <h5 class="text-decoration-underline mb-3">Datos para transferencia</h5>
+                    <div class="row bg-lightblue-op bg-opacity-25 p-3">
+                        <div class="col">
+                            <p class="mb-0">Nombre: </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">Natalia Castro</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">RUT: </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">18.547.292-2</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">Banco: </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">Banco Estado</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">Tipo cuenta: </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">Vista/Rut</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">N° de cuenta: </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">18547292</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 pt-5">
+                    <p class="text-center mb-2"> o escanea con tu app Banco Estado</p>
+                    <div class="row justify-content-center">
+                        <div class="col-10 col-lg-6">
+                            <img src="../../../assets/img/resources/pagorut.png" alt="código" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 py-5 text-center">
+                    <h5 class="mb-3">Recuerda enviar tu comprobante a <a class="fc-brand"
+                            href="mailto:contactonaturtea@gmail.com">contactonaturtea@gmail.com</a> con el código del
+                        pedido.</h5>
+                </div>
+            </div>
+            <div class="row pt-5" *ngIf="preOrder.metodo === 'contraentrega'">
+                <div class="col-12 text-center">
+                    <p class="fs-5">Hacemos despachos los días martes y jueves. Te llamaremos a tu número de teléfono
+                        registrado si vamos cerca de tu domicilio. Al llegar, te solicitaremos <span class="fc-brand">pagar el total de la
+                            compra</span>: los productos y el
+                        envío y podrás hacerlo con tarjetas de débito o crédito.</p>
+                </div>
+            </div>
+        </div>
         <div class="col 12 col-lg-4 border-lg-start ps-lg-5">
             <h3 class="py-3">Resumen</h3>
             <div class="table-responsive cartTable">
@@ -162,7 +250,8 @@
                     <p class="mb-0">Cupón utilizado:</p>
                 </div>
                 <div class="col" *ngIf="infoCarrito?.datosCupon.nombre != '';">' <span
-                        class="font-monospace bg-secondary bg-opacity-25">{{infoCarrito?.datosCupon.nombre}}</span> '</div>
+                        class="font-monospace bg-secondary bg-opacity-25">{{infoCarrito?.datosCupon.nombre}}</span> '
+                </div>
                 <div class="w-100"></div>
                 <div class="col" *ngIf="infoCarrito?.datosCupon.monto != 0;">
                     <p class="mb-0">Porcentaje descuento:</p>
@@ -206,9 +295,10 @@
                 </div>
 
             </div>
-            <div class="row py-5">
+            <div class="row py-5" *ngIf="!isOrderDone">
                 <div class="col-12">
-                    <button type="button" class="btn btn-nt-brand w-100" (click)="modalConfirmOrder.show()">finalizar pedido</button>
+                    <button type="button" class="btn btn-nt-brand w-100" (click)="confirmOrder()">finalizar
+                        pedido</button>
                 </div>
             </div>
         </div>
@@ -223,7 +313,8 @@
                 <p>¿Quieres continuar y finalizar el pedido?</p>
                 <button type="button" class="btn btn-nt-secondary me-3"
                     (click)="modalConfirmOrder.hide()">Cancelar</button>
-                <button type="button" class="btn btn-nt-primary" (click)="confirmOrder()">Continuar</button>
+                <button type="button" class="btn btn-nt-primary"
+                    (click)="sendOrder(); modalConfirmOrder.hide()">Continuar</button>
             </div>
         </div>
     </div>

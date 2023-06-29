@@ -234,6 +234,10 @@ input[type="number"] {
   position: absolute;
 }
 
+.bg-lightblue-op {
+  background-color: rgba(24, 72, 98,var(--bs-bg-opacity))!important;
+}
+
 @media screen and (min-width: 992px) {
   .ntContainer {
     min-height: calc(100vh - 95px - 220px);
