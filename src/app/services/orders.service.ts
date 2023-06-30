@@ -20,7 +20,6 @@ export class OrdersService {
     private _auth: Auth) { }
 
   async createOrder(orderInfo: Order) {
-    const user = this._auth.currentUser;
     const currentTimestamp = Timestamp.now();
     try {
       const orderDoc = await addDoc(collection(this.firestore, "orders"), {

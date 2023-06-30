@@ -1,0 +1,180 @@
+<div class="container-fluid">
+    <div class="row p-3">
+        <div class="col-8">
+            <h4>Códigos de descuento</h4>
+        </div>
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-nt-primary" (click)="newCodeModal.show();">
+                <span class="d-lg-none"><i class="bi bi-plus-circle fs-6"></i></span>
+                <span class="d-none d-lg-inline-block">crear código</span>
+            </button>
+        </div>
+        <div class="col-12 p-3">
+            <div class="table-responsive ntFixedTable">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre código</th>
+                            <th scope="col" class="text-center">% descuento</th>
+                            <th scope="col" class="text-center">Estado</th>
+                            <th scope="col" class="text-center colActions">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <ng-container *ngFor="let code of discountCodesList; let i = index;">
+                            <tr colspan="4">
+                                <td><span class="fs-18p">{{code.nombre}}</span></td>
+                                <td class="text-center"><span class="fs-18p">{{code.monto}}%</span></td>
+                                <td class="text-center">
+                                    <div class="d-lg-none">
+                                        <div *ngIf="code?.vigente == 'Sí'; else eyeInactive"><i
+                                                class="bi bi-check-circle-fill fc-darkblue fs-5"></i></div>
+                                        <ng-template #eyeInactive><i
+                                                class="bi bi-x-circle fc-darkblue fs-5"></i></ng-template>
+                                    </div>
+                                    <div class="d-none d-lg-block">
+                                        <span *ngIf="code?.vigente == 'Sí'; else textInactive">Vigente</span>
+                                        <ng-template #textInactive>No vigente</ng-template>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" (click)="openEditCodeModal(code)"
+                                            class="btn btn-sm btn-warning d-flex align-items-center"><i
+                                                class="bi bi-pencil-square fs-5"></i> <span
+                                                class="fw-semibold ps-1 d-none d-lg-inline-block">Editar</span></button>
+                                        <button type="button"  (click)="openDeleteCodeModal(code)"
+                                        class="btn btn-sm btn-danger d-flex align-items-center">
+                                            <i class="bi bi-trash3 fs-5"></i> <span
+                                                class="fw-semibold ps-1 d-none d-lg-inline-block">Eliminar</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- newCodeModal -->
+<div class="modal fade" bsModal #newCodeModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="newCodeModalLabel">Nuevo código de descuento</h4>
+                <button type="button" class="btn-close" (click)="newCodeModal.hide();" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-1 p-lg-3">
+                <form class="row" [formGroup]="newCodeForm" (ngSubmit)="onSubmitNewCode();" id="newCodeForm">
+                    <div class="col-12 col-lg-8">
+                        <label for="ntNewCode" class="form-label">Nombre código:</label>
+                        <input type="text" formControlName="nombre" class="form-control" id="ntNewCode"
+                            placeholder="invierno">
+                        <span class="messageContainer">
+                            <span *ngIf="(newName?.dirty || newName?.touched) && newName?.errors"
+                                class="text-danger animate__animated animate__fadeIn">Debes ingresar un nombre.</span>
+                        </span>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="ntNewCodeAmount" class="form-label">Monto (%):</label>
+                        <input type="number" formControlName="monto" class="form-control" id="ntNewCodeAmount"
+                            placeholder="20">
+                        <span class="messageContainer">
+                            <span *ngIf="(newAmount?.dirty || newAmount?.touched) && newAmount?.errors"
+                                class="text-danger animate__animated animate__fadeIn">Entre 1 y 100.</span>
+                        </span>
+                    </div>
+                    <div class="visually-hidden">
+                        <input type="text" formControlName="vigente" class="form-control" id="ntNewVigente"
+                            placeholder="sí">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary" (click)="newCodeModal.hide()">Cancelar</button>
+                <button type="submit" form="newCodeForm" class="btn btn-nt-primary">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- editCodeModal -->
+<div class="modal fade" bsModal #editCodeModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editCodeModalLabel">Editar código de descuento</h4>
+                <button type="button" class="btn-close" (click)="editCodeModal.hide();" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <form class="row" [formGroup]="editCodeForm" (ngSubmit)="onSubmitEditCode();" id="editCodeForm">
+                    <div class="col-12 col-lg-5">
+                        <label for="ntEditCode" class="form-label">Nombre código:</label>
+                        <input type="text" formControlName="nombre" class="form-control" id="ntEditCode"
+                            placeholder="invierno">
+                        <span class="messageContainer">
+                            <span *ngIf="(newName?.dirty || newName?.touched) && newName?.errors"
+                                class="text-danger animate__animated animate__fadeIn">Debes ingresar un nombre.</span>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <label for="ntEditCodeAmount" class="form-label">Monto (%):</label>
+                        <input type="number" formControlName="monto" class="form-control" id="ntEditCodeAmount"
+                            placeholder="20">
+                        <span class="messageContainer">
+                            <span *ngIf="(newAmount?.dirty || newAmount?.touched) && newAmount?.errors"
+                                class="text-danger animate__animated animate__fadeIn">Entre 1 y 100.</span>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-4">
+                        <label for="editVigencia" class="form-label d-block">Estado:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" formControlName="vigente" id="ntEditVigente"
+                                value="Sí">
+                            <label class="form-check-label" for="editVigencia">
+                                Vigente
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" formControlName="vigente" id="ntEditNoVigente"
+                                value="No">
+                            <label class="form-check-label" for="editVigencia">
+                                No vigente
+                            </label>
+                        </div>
+                    </div>
+                    <div class="visually-hidden">
+                        <input type="text" formControlName="id" class="form-control" id="ntNewId">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary" (click)="editCodeModal.hide()">Cancelar</button>
+                <button type="submit" form="editCodeForm" class="btn btn-nt-primary">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- deleteCodeModal -->
+<div class="modal fade" bsModal #deleteCodeModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title text-center" id="deleteCategoryLabel">¿Seguro que deseas eliminar el código
+                <span class="fc-brand fw-bold"> {{codeToDelete.nombre}}</span>?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary"
+                    (click)="deleteCodeModal.hide()">Cancelar</button>
+                <button type="submit" class="btn btn-nt-primary" (click)="deleteCode(codeToDelete)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

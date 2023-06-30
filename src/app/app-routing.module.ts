@@ -18,6 +18,7 @@ import { UserInformationComponent } from './pages/welcome/user-information/user-
 import { AuthGuard } from './guards/auth.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.component';
+import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-codes.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
       {
         path: 'pedidos',
         component: OrdersComponent,
+      },
+      {
+        path: 'codigos',
+        component: DiscountCodesComponent,
       }
     ],
     canActivate: [AuthGuard],

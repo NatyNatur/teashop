@@ -3,6 +3,6 @@ export class CodeInformation {
     mensaje?: string = '';
     monto?: number = 0;
     nombre?: string = '';
-    vigente?: boolean = false;
+    vigente?: string = 'Sí';
 }
 

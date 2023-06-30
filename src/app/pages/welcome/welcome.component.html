@@ -13,8 +13,8 @@
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="['mis-pedidos']" routerLinkActive="active">Mis pedidos</a>
                         </li>
-                        <li class="nav-item" *ngIf="role === 'admin'" [routerLink]="['/admin']" routerLinkActive="active">
-                            <a class="nav-link">Panel de Administración</a>
+                        <li class="nav-item" *ngIf="role === 'admin'">
+                            <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active">Panel de Administración</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="['/']" (click)="logOut()">Cerrar sesión</a>
