@@ -55,7 +55,6 @@ export class CheckoutComponent {
     this.loadUserData();
     this.productList = this._cart.getCart();
     this.infoCarrito = JSON.parse(localStorage.getItem('datosCarrito') as any) || []
-    console.log(this.infoCarrito)
   }
 
   createUserDataForm() {
@@ -70,6 +69,7 @@ export class CheckoutComponent {
     //const userDataString = localStorage.getItem('userData');
     if (item) {
       this.userData = JSON.parse(item);
+      console.log(this.userData)
       this.isDone = true;
       //this._loader.loaderOff();
       this.fillUserDataForm();
@@ -201,6 +201,7 @@ export class CheckoutComponent {
     this.preOrder.metodo = this.paymentOption;
     this.preOrder.short_id = shortUID;
     this.preOrder.usuario = this.userId;
+    this.preOrder.userData = this.userData;
     console.log(this.preOrder);
   }
 

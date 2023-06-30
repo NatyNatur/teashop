@@ -154,7 +154,7 @@
                     <p class="mb-0">Envío:</p>
                     <h5>{{convertShippingOption(preOrder.tipo_envio)}} {{preOrder.sucursal}}</h5>
                 </div>
-                <div class="col-12 py-5 text-center" *ngIf="preOrder.metodo !== 'contraentrega'">
+                <div class="col-12 pt-5 text-center" *ngIf="preOrder.metodo !== 'contraentrega'">
                     <p>Hacemos envíos los días viernes y sábados. Te enviaremos un correo con el número de seguimiento. Recuerda que al llegar tu pedido, deberás pagar el envío.</p>
                 </div>
             </div>
@@ -286,16 +286,15 @@
                 </div>
             </div>
             <hr>
-            <div class="row justify-content-between">
+            <div class="row justify-content-between mb-5">
                 <div class="col">
                     <h4 class="mb-0">Total:</h4>
                 </div>
                 <div class="col">
                     <h4 class="mb-0">$ {{infoCarrito?.total + shippingCost | thousands}}</h4>
                 </div>
-
             </div>
-            <div class="row py-5" *ngIf="!isOrderDone">
+            <div class="row mb-5" *ngIf="!isOrderDone">
                 <div class="col-12">
                     <button type="button" class="btn btn-nt-brand w-100" (click)="confirmOrder()">finalizar
                         pedido</button>

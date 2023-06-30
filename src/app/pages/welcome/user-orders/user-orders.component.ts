@@ -11,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./user-orders.component.css']
 })
 export class UserOrdersComponent implements OnInit {
-  isDone: boolean = true;
+  isDone: boolean = false;
   ordersList: Order[] = [];
   unsubscribe: any;
   private userId: string = '';
@@ -33,6 +33,7 @@ export class UserOrdersComponent implements OnInit {
     this._orders.getUserOrders(this.userId).then((res) => {
       console.log('async', res);
       this.ordersList = res;
+      this.isDone = true;
       this._loader.loaderOff();
     })
   }

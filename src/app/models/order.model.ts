@@ -1,4 +1,5 @@
 import { CodeInformation } from "./code-information.model";
+import { NewUser } from "./new-user.model";
 import { SimpleProduct } from "./product.model";
 import { Timestamp } from 'firebase/firestore';
 export class Order {
@@ -15,4 +16,5 @@ export class Order {
     estado: string = 'creado';
     usuario: string = '';
     created_at: Timestamp | undefined;
+    userData: NewUser = new NewUser;
 }

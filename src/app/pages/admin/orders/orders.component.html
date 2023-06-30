@@ -1,1 +1,257 @@
-<p>orders works!</p>
+<div class="container-fluid">
+    <div class="row rowAdminBg p-3">
+        <div class="col-8">
+            <h4>Pedidos</h4>
+        </div>
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-nt-primary" (click)="openEmptyEditOrderStatusModal()">
+                <span class="d-lg-none"><i class="bi bi-plus-circle fs-6"></i></span>
+                <span class="d-none d-lg-inline-block">editar estado pedido</span>
+            </button>
+        </div>
+        <div class="col-12 p-3">
+            <div class="table-responsive ntFixedTable">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col" class="text-center">Fecha</th>
+                            <th scope="col" class="text-center">Estado</th>
+                            <th scope="col" class="text-center">Envío</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <ng-container *ngFor="let order of ordersList; let i = index;">
+                            <tr colspan="3">
+                                <td><span class="fs-18p">{{order.short_id}}</span></td>
+                                <td class="text-center">
+                                    <span class="d-block">{{convertTimestampToDate(order.created_at)}}</span>
+                                    <span class="d-block">{{convertTimestampToTime(order.created_at)}}</span>
+                                </td>
+                                <td class="text-center">
+                                    {{order.estado}}
+                                </td>
+                                <td class="text-center">
+                                    {{convertShippingOption(order.tipo_envio)}} {{order.sucursal}}
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" (click)="setOrderDetail(order)"
+                                            class="btn btn-sm btn-nt-secondary d-flex align-items-center">
+                                            <span class="fw-semibold ps-1">ver detalles</span></button>
+                                        <button type="button" (click)="openEditOrderStatusModal(order)"
+                                            class="btn btn-sm btn-warning d-flex align-items-center"> <i
+                                                class="bi bi-pencil-square fs-5"></i> <span
+                                                class="fw-semibold ps-1 d-none d-lg-inline-block">editar
+                                                estado</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- seeOrderDetail -->
+    <div class="modal fade" bsModal #seeOrderDetail="bs-modal" tabindex="-1" role="dialog"
+        aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editUserDataModalLabel">Detalle del pedido {{orderDetails.short_id}}
+                    </h4>
+                    <button type="button" class="btn-close" (click)="seeOrderDetail.hide();"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 p-lg-3">
+                    <p class="fs-5">Productos:</p>
+                    <div class="table-responsive cartTable">
+                        <table class="w-100">
+                            <tbody>
+                                <tr colspan="3" *ngFor="let product of orderDetails.productos; let i = index;">
+                                    <td>
+                                        <p class="fc-darkblue mb-0">{{product.quantity}} x {{product.product_name}}</p>
+                                    </td>
+                                    <td class="text-end">${{product.product_price | thousands}}</td>
+                                    <td class="text-end" [width]="100">= ${{ product.product_price*product.quantity |
+                                        thousands}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <p class="mb-0">Subtotal:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">$ {{orderDetails.subtotal | thousands}}</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col" *ngIf="orderDetails.cupon.nombre != '';">
+                            <p class="mb-0">Cupón utilizado:</p>
+                        </div>
+                        <div class="col" *ngIf="orderDetails?.cupon?.nombre != '';">' <span
+                                class="font-monospace bg-secondary bg-opacity-25">{{orderDetails.cupon.nombre}}</span> '
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col" *ngIf="orderDetails.cupon.monto != 0;">
+                            <p class="mb-0">Porcentaje descuento:</p>
+                        </div>
+                        <div class="col" *ngIf="orderDetails.cupon.monto != 0;">
+                            <p class="mb-0">{{orderDetails.cupon.monto}} % </p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <p class="mb-0">Envío:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">$ {{orderDetails.envio | thousands}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <p class="mb-0">Método de pago:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0"> <span *ngIf="orderDetails.metodo === 'transferencia' else mpContraentrega">
+                                    Transferencia.</span></p>
+                            <ng-template #mpContraentrega>Pago contra entrega.</ng-template>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <p class="mb-0">Total:</p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">$ {{orderDetails.total | thousands}}</p>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <p class="fs-5">Datos envío:</p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="mb-0">{{orderDetails.userData.nombre}} {{orderDetails.userData.apellido}}
+                                    </p>
+                                    <p class="mb-0">{{orderDetails.userData.direccion}},
+                                        {{orderDetails.userData.comuna}}</p>
+                                    <p class="mb-0">{{orderDetails.userData.region}}</p>
+                                    <p class="mb-0">+56 {{orderDetails.userData.telefono}}</p>
+                                    <p class="mb-0"> {{convertShippingOption(orderDetails.tipo_envio)}}
+                                        {{orderDetails.sucursal}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- editOrderStatus -->
+    <div class="modal fade" bsModal #editOrderStatus="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editOrderStatusLabel">Editar Información</h4>
+                    <button type="button" class="btn-close" (click)="editOrderStatus.hide();"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 p-lg-3">
+                    <form class="row" [formGroup]="orderInformation" (ngSubmit)="onSubmitOrderInformation();"
+                        id="editOrderStatus">
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditCode" class="form-label">Código pedido:</label>
+                            <input type="text" formControlName="short_id" class="form-control" id="ntEditCode"
+                                placeholder="######">
+                            <span class="messageContainer">
+                                <span *ngIf="(short_id?.dirty || short_id?.touched) && short_id?.errors"
+                                    class="text-danger animate__animated animate__fadeIn">Debes ingresar el código del
+                                    pedido.</span>
+                            </span>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditStatus" class="form-label">Estado: </label>
+                            <select class="form-select" aria-label="ntEditStatus" formControlName="estado">
+                                <option selected disabled value="">Seleccionar</option>
+                                <option value="creado">creado</option>
+                                <option value="pagado">pagado</option>
+                                <option value="enviado">enviado</option>
+                                <option value="recibido">recibido</option>
+                            </select>
+                            <span class="messageContainer">
+                                <span class="messageContainer">
+                                    <span *ngIf="(estado?.dirty || estado?.touched) && estado?.errors"
+                                        class="text-danger animate__animated animate__fadeIn">Debes el estado del
+                                        pedido.</span>
+                                </span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-nt-secondary"
+                        (click)="editOrderStatus.hide();emptyOrderInformationForm()">Cancelar</button>
+                    <button type="submit" form="editOrderStatus" class="btn btn-nt-primary">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- editOrderStatusWithCode -->
+    <div class="modal fade" bsModal #editOrderStatusWithCode="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-static-name">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editOrderStatusWithCodeLabel">Editar Información</h4>
+                    <button type="button" class="btn-close" (click)="editOrderStatusWithCode.hide();"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 p-lg-3">
+                    <form class="row" [formGroup]="orderInformationWithData" (ngSubmit)="onSubmitOrderInformationWithData();"
+                        id="editOrderStatusWithCode">
+                        <div class="visually-hidden">
+                            <input type="text" formControlName="id" readonly class="form-control" id="ntEditId"
+                                placeholder="######">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditCode" class="form-label">Código pedido:</label>
+                            <input type="text" formControlName="short_id" class="form-control" id="ntEditCode"
+                                placeholder="######">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="ntEditStatus" class="form-label">Estado: </label>
+                            <select class="form-select" aria-label="ntEditStatus" formControlName="estado">
+                                <option selected disabled value="">Seleccionar</option>
+                                <option value="creado" [disabled]="orderDetails.estado === 'pagado' || orderDetails.estado === 'enviado' || orderDetails.estado === 'entregado'">creado</option>
+                                <option value="pagado" [disabled]="orderDetails.estado === 'enviado' || orderDetails.estado === 'entregado'">pagado</option>
+                                <option value="enviado" [disabled]="orderDetails.estado === 'entregado'">enviado</option>
+                                <option value="entregado">entregado</option>
+                            </select>
+                            <span class="messageContainer">
+                                <span class="messageContainer">
+                                    <span *ngIf="(estado?.dirty || estado?.touched) && estado?.errors"
+                                        class="text-danger animate__animated animate__fadeIn">Debes el estado del
+                                        pedido.</span>
+                                </span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-nt-secondary"
+                        (click)="editOrderStatusWithCode.hide();">Cancelar</button>
+                    <button type="submit" form="editOrderStatusWithCode" class="btn btn-nt-primary">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@
                         <h4 class="fc-darkblue text-uppercase">Mis pedidos</h4>
                     </div>
                 </div>
-                <div class="col-12 mb-2">
+                <div class="col-12 mb-2" *ngIf="ordersList.length > 0; else noOrdersYet">
                     <div class="table-responsive ntFixedTable">
                         <table class="table align-middle">
                             <thead>
@@ -48,13 +48,21 @@
                         </table>
                     </div>
                 </div>
+                <ng-template #noOrdersYet>
+                    <div class="col-12 text-center p3-5">
+                        <h4>¡Todavía no has hecho pedidos!</h4>
+                        <a class="fc-darkblue text-decoration-none cartRemove fw-semibold" [routerLink]="['/']">
+                            Volver al Inicio
+                        </a>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
 
     <!-- seeOrderDetail -->
-    <div class="modal fade" bsModal #seeOrderDetail="bs-modal"  tabindex="-1"
-        role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal fade" bsModal #seeOrderDetail="bs-modal" tabindex="-1" role="dialog"
+        aria-labelledby="dialog-static-name">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
