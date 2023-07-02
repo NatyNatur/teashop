@@ -1,47 +1,72 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-md-6 col-xl-3 mb-md-2">
-            <div class="counter-box">
-                <div class="me-lg-1 contrastColor">
-                    <i class="bi bi-people fs-1"></i>
-                </div>
-                <div class="text-center">
-                    <h3>4</h3>
-                    <h5>usuarios registrados</h5>
-                </div>
+<div class="row p-3">
+    <div class="col-12">
+        <h4>Vista General</h4>
+    </div>
+    <div class="col-6 col-xl-3 mb-4">
+        <div class="counter-box">
+            <div class="me-lg-1 d-none d-md-block contrastColor">
+                <i class="bi bi-people fs-1"></i>
+            </div>
+            <div class="text-center" *ngIf="userCountIsDone">
+                <h3>{{userCount}}</h3>
+                <h5>
+                    <span *ngIf="userCount === 1; else moreThanOneU">usuario <br> registrado</span>
+                    <ng-template #moreThanOneU><span>usuarios <br> registrados</span> </ng-template>
+                </h5>
+            </div>
+            <div class="text-center" *ngIf="!userCountIsDone">
+                <app-mini-loader></app-mini-loader>
             </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-3 mb-md-2">
-            <div class="counter-box">
-                <div class="me-lg-1 contrastColor">
-                    <i class="bi bi-box-seam fs-1"></i>
-                </div>
-                <div class="text-center">
-                    <h3>25</h3>
-                    <h5>productos ingresados</h5>
-                </div>
+    </div>
+    <div class="col-6 col-xl-3 mb-4">
+        <div class="counter-box">
+            <div class="me-lg-1 d-none d-md-block contrastColor">
+                <i class="bi bi-box-seam fs-1"></i>
+            </div>
+            <div class="text-center" *ngIf="productsCountIsDone">
+                <h3>{{productsCount}}</h3>
+                <h5>
+                    <span *ngIf="productsCount === 1; else moreThanOneP">producto <br> ingresado</span>
+                    <ng-template #moreThanOneP><span>productos <br> ingresados</span> </ng-template>
+                </h5>
+            </div>
+            <div class="text-center" *ngIf="!productsCountIsDone">
+                <app-mini-loader></app-mini-loader>
             </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-3 mb-md-2">
-            <div class="counter-box">
-                <div class="me-lg-1 contrastColor">
-                    <i class="bi bi-bag-check fs-1"></i>
-                </div>
-                <div class="text-center">
-                    <h3>101</h3>
-                    <h5>ventas realizadas</h5>
-                </div>
+    </div>
+    <div class="col-6 col-xl-3 mb-4">
+        <div class="counter-box">
+            <div class="me-lg-1 d-none d-md-block contrastColor">
+                <i class="bi bi-bag-check fs-1"></i>
+            </div>
+            <div class="text-center" *ngIf="newOrdersCountIsDone">
+                <h3>{{newOrdersCount}}</h3>
+                <h5>
+                    <span *ngIf="newOrdersCount === 1; else moreThanOneO">pedido <br> recibido</span>
+                    <ng-template #moreThanOneO><span>pedidos <br> recibidos</span> </ng-template>
+                </h5>
+            </div>
+            <div class="text-center" *ngIf="!newOrdersCountIsDone">
+                <app-mini-loader></app-mini-loader>
             </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-3 mb-md-2">
-            <div class="counter-box">
-                <div class="me-lg-1 contrastColor">
-                    <i class="bi bi-card-checklist fs-1"></i>
-                </div>
-                <div class="text-center">
-                    <h3>3</h3>
-                    <h5>pedidos pendientes</h5>
-                </div>
+    </div>
+    <div class="col-6 col-xl-3 mb-4">
+        <div class="counter-box">
+            <div class="me-lg-1 d-none d-md-block contrastColor">
+                <i class="bi bi-card-checklist fs-1"></i>
+            </div>
+            <div class="text-center" *ngIf="discountCodesCountIsDone">
+                <h3>{{discountCodesCount}}</h3>
+                <h5>
+                    <span *ngIf="discountCodesCount === 1; else moreThanOneC">cupón <br> activo</span>
+                    <ng-template #moreThanOneC><span>cupones <br> activos</span> </ng-template>
+                </h5>
+            </div>
+            <div class="text-center" *ngIf="!discountCodesCountIsDone">
+                <app-mini-loader></app-mini-loader>
             </div>
         </div>
     </div>

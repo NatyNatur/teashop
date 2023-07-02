@@ -62,7 +62,7 @@ const routes: Routes = [
   },
   {
     path: 'en-construccion',
-    title: 'Ups',
+    title: 'En construcción | naturtea',
     component: UnderConstructionComponent
   },
   {
