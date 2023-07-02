@@ -6,7 +6,7 @@
                 <div class="mb-lg-2">
                     <label for="ntLoginEmail" class="form-label">Correo electrónico </label>
                     <input type="email" class="form-control" [(ngModel)]="registeredUser.email" required email
-                        id="ntLoginEmail" name="email" placeholder="lala@lala.com">
+                        id="ntLoginEmail" name="email" placeholder="email@dominio.com">
                     <span class="messageContainer">
                         <span *ngIf="loginForm.submitted && loginForm.controls['email'].errors"
                             class="text-danger animate__animated animate__fadeIn">Recuerda ingresar tu email.</span>

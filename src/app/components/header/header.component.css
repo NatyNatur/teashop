@@ -44,6 +44,10 @@ header {
     background-color: var(--nt-darkblue);
 }
 
+.shippingText {
+    background-color: var(--nt-darkblue);
+    color: #FFF;
+}
 @media screen and (max-width: 991px) {
     .dropdown-menu  {
         border: none;

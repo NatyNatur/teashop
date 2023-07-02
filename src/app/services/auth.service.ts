@@ -36,7 +36,6 @@ export class AuthService {
     try {
       const user = await signInWithEmailAndPassword(this._auth, userModel.email, userModel.password);
       let token = await this._auth.currentUser?.getIdToken(false);
-      localStorage.setItem('rolInterno', 'cliente');
       this.userCredentials = user;
       const isAdmin = await this.checkIfIsAdmin(user);
       localStorage.setItem('userId', this.userCredentials.user.uid);

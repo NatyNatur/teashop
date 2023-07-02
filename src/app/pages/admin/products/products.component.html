@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row p-md-3 productsRow">
-        <div class="col-6 col-md-4 col-lg-2 text-center mb-2" *ngFor="let product of productsList; let i = index">
+        <div class="col-6 col-md-4 col-lg-3 text-center mb-2" *ngFor="let product of productsList; let i = index">
             <div class="card h-100" id="producto{{i + 1}}">
                 <img src="{{product.product_imageUrl}}" class="card-img-top" alt="{{product.product_name}}">
                 <div class="card-body p-1 pt-2">
@@ -161,7 +161,7 @@
             <div class="modal-body p-1 p-lg-3">
                 <form (ngSubmit)="onSubmitEditProduct(editProductForm)" #editProductForm="ngForm" id="editProductForm"
                     class="row pt-3 px-3">
-                    <div class="col-12">
+                    <div class="col-12 col-md-6">
                         <label for="ntEditProductName" class="form-label">Nombre producto: </label>
                         <input type="text" class="form-control" [(ngModel)]="product.product_name" minlength="6"
                             required id="ntEditProductName" name="product_name" placeholder="Té negro ceylan">
@@ -170,6 +170,27 @@
                                 class="text-danger animate__animated animate__fadeIn">Recuerda ingresar un nombre
                                 descriptivo.</span>
                         </span>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3 mb-lg-0">
+                        <label for="product_featured" class="form-label d-block">¿Quieres destacar este producto? 
+                            <span class="ms-1" placement="auto"
+                            tooltip="Si lo activas, este producto aparecerá en la página principal.">
+                            <i class="bi bi-info-circle"></i></span>
+                        </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="product_featured" id="ftActiveEdit"
+                                [(ngModel)]="product.product_featured" value="Si">
+                            <label class="form-check-label" for="product_featured">
+                                Sí
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="product_featured" id="ftInactiveEdit"
+                                [(ngModel)]="product.product_featured" value="No">
+                            <label class="form-check-label" for="product_featured">
+                                No
+                            </label>
+                        </div>
                     </div>
                     <div class="col-6 col-md-4">
                         <label for="ntEditProductPrice" class="form-label">Precio: </label>
@@ -196,17 +217,21 @@
                         </span>
                     </div>
                     <div class="col-12 col-md-6 mb-3 mb-lg-0">
-                        <label for="status" class="form-label d-block">¿Quieres destacar este producto?</label>
+                        <label for="status" class="form-label d-block">¿Producto visible? 
+                            <span class="ms-1" placement="auto"
+                            tooltip="Recuerda que si la categoría no está activa, el producto no se verá.">
+                            <i class="bi bi-info-circle"></i></span>
+                        </label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="status" id="statusActiveEdit"
-                                [(ngModel)]="product.product_featured" value="Si">
+                                [(ngModel)]="product.product_status" value="active">
                             <label class="form-check-label" for="status">
                                 Sí
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="status" id="statusInactiveEdit"
-                                [(ngModel)]="product.product_featured" value="No">
+                                [(ngModel)]="product.product_status" value="inactive">
                             <label class="form-check-label" for="status">
                                 No
                             </label>

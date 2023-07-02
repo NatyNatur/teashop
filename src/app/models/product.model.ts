@@ -10,6 +10,7 @@ export class Product {
     product_category: string = '';
     product_subcategory: string = '';
     product_imageName: string = '';
+    product_status: string = 'active';
 }
 
 export class ProductInCart {

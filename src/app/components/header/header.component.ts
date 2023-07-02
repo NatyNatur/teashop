@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Category } from 'src/app/models/category.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-header',
@@ -22,13 +23,16 @@ export class HeaderComponent {
 
   constructor(private _router: Router, 
     private _categories: CategoriesService,
-    private _auth: AuthService) {
+    private _auth: AuthService,
+    private _products: ProductsService) {
     this.getScreenWidth = window.innerWidth;
     this.getAllCategoriesObs();
   }
 
   ngOnInit() {
     this.onWindowResize();
+    this._categories.executeGetCategoriesForShop();
+    this._products.executeGetFeaturedProducts();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -69,4 +73,6 @@ export class HeaderComponent {
       this._router.navigate(['ingresa'])
     }
   }
+
+
 }

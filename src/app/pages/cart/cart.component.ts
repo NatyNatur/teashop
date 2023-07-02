@@ -44,7 +44,6 @@ export class CartComponent implements OnInit {
   }
 
 // con input manejable
-/*
   ngAfterViewInit() {
     this.checkContainerForStock();
   }
@@ -53,8 +52,6 @@ export class CartComponent implements OnInit {
     this.alertContainers.forEach((alertContainerRef: ElementRef) => {
       const alertContainer = alertContainerRef.nativeElement as HTMLElement;
       const isVisible = this.isElementVisible(alertContainer);
-      console.log(isVisible);
-
       if (isVisible) {
         this.exceedsStock = true;
       }
@@ -67,7 +64,7 @@ export class CartComponent implements OnInit {
       return true; // El mensaje está visible
     }
     return false; // El mensaje está oculto
-  }*/
+  }
 
   getCartList() {
     this._cart.loadCart();
@@ -99,7 +96,6 @@ export class CartComponent implements OnInit {
   }
 
   deleteFromCart(product: ProductInCart) {
-    console.log('aho', product)
     this._cart.removeProduct(product);
     this.addSubtotal();
   }
@@ -115,9 +111,8 @@ export class CartComponent implements OnInit {
   }
 
   checkStock() {
-    //this.checkContainerForStock();
+    this.checkContainerForStock();
     if (this.exceedsStock) {
-      console.log('no');
       this._toastr.error('Uno o varios productos exceden el stock', 'No podemos continuar')
     } else {
       this.modalConfirm?.show()
@@ -150,15 +145,11 @@ export class CartComponent implements OnInit {
 
   checkDiscountCode() {
     if (this.discountCode != '') {
-      console.log(this.discountCode)
       this._discountCodes.getCouponByCode(this.discountCode).then((res) => {
         this.discountCodeInfo = res;
-        console.log(this.discountCodeInfo)
         this.discountRate = this.discountCodeInfo['monto'] || 0;
         this.discountAmount = this.subtotal * (this.discountRate / 100 );
-
         this.total = this.subtotal - this.discountAmount;
-        console.log(this.subtotal, this.discountAmount)
       }).finally(() => {
         this.discountCode = '';
       })
@@ -173,6 +164,7 @@ export class CartComponent implements OnInit {
     if (product.quantity > 1) {
       product.quantity = product.quantity - 1
     }
+    this.onChangeQuantity(product.quantity, product)
     this.addSubtotal();
   }
 
@@ -183,6 +175,7 @@ export class CartComponent implements OnInit {
     } else {
       this._toastr.info('No tenemos más stock disponible.', 'Lo sentimos.');
     }
+    this.onChangeQuantity(product.quantity, product)
     this.addSubtotal();
   }
 }

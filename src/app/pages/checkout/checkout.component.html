@@ -300,6 +300,11 @@
                         pedido</button>
                 </div>
             </div>
+            <div class="row mb-5" *ngIf="isOrderDone">
+                <div class="col-12">
+                    <a type="button" class="btn btn-nt-primary w-100" [routerLink]="'/cliente/mis-pedidos'" >ver mis pedidos</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

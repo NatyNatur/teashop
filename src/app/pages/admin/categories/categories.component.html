@@ -104,7 +104,7 @@
                     class="pt-3 px-3">
                     <div>
                         <label for="ntAddCategory" class="form-label">Nombre categoría:</label>
-                        <input type="text" class="form-control" [(ngModel)]="newCategory.category_name" minlength="6"
+                        <input type="text" class="form-control" [(ngModel)]="newCategory.category_name" minlength="3"
                             required id="ntAddCategory" name="category_name" placeholder="Accesorios">
                         <span class="messageContainer">
                             <span *ngIf="categoryForm.submitted && categoryForm.controls['category_name'].errors"
@@ -130,7 +130,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h4 class="modal-title text-center" id="deleteCategoryLabel">¿Seguro que deseas eliminar la
-                    categoría <span class="fc-brand fw-bold"> {{categoryName}}? </span></h4>
+                    categoría <span class="fc-brand fw-bold"> {{categoryName}}</span>? Esto eliminará las subcategorías y productos asociados.</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-nt-secondary"
@@ -306,7 +306,7 @@
             <div class="modal-body">
                 <h4 class="modal-title text-center" id="deleteSubcategoryLabel">¿Seguro que deseas eliminar la
                     subcategoría
-                    <span class="fc-brand fw-bold"> {{categoryName}}?</span></h4>
+                    <span class="fc-brand fw-bold"> {{categoryName}}</span>? Esto eliminará los productos asociados.</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-nt-secondary"

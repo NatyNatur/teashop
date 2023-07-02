@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { Product, ProductInCart } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -25,7 +26,7 @@ export class CategoryComponent implements OnInit {
     private _route: ActivatedRoute,
     private _cart: CartService,
     private _toastr: ToastrService,
-    private router: Router) {
+    private _router: Router) {
 
   }
 
@@ -72,6 +73,12 @@ export class CategoryComponent implements OnInit {
       productInCart.quantity = 1;
       this._cart.addToCart(productInCart);
     }
-    this._toastr.success('Producto agregado a tu carrito');
+    this._toastr.success('Producto agregado a tu carrito').onTap
+    .pipe(take(1))
+    .subscribe(() => this.toasterClickedHandler());
+  }
+
+  toasterClickedHandler() {
+    this._router.navigate(['/carrito']);
   }
 }

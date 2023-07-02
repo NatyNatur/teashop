@@ -1,10 +1,11 @@
-<section class="container ntContainer">
-    <h3 class="fc-darkblue fw-semibold text-center py-5">{{cat_name}}</h3>
-    <div class="row" *ngIf="!isReady">
+<section>
+    <h3 class="fc-darkblue fw-semibold text-center py-3 mb-0">{{cat_name}}</h3>
+    <div class="row py-5" *ngIf="!isReady">
         <app-mini-loader></app-mini-loader>
     </div>
     <div class="row p-md-3 productsRow" *ngIf="productsList.length >= 1; else noProducts">
-        <div class="col-12 col-md-4 col-lg-3 text-center mb-3" *ngFor="let product of productsList; let i = index">
+        <ng-container *ngFor="let product of productsList; let i = index">
+        <div class="col-12 col-md-4 col-lg-3 text-center mb-3" *ngIf="product.product_status === 'active'">
             <div class="card h-100" id="producto{{i + 1}}">
                 <img src="{{product.product_imageUrl}}" class="card-img-top" alt="{{product.product_name}}">
                 <div class="card-body p-1 pt-3">
@@ -13,7 +14,7 @@
                 </div>
                 <div class="card-footer bg-white border-top-0 pb-3">
                     <div class="d-flex justify-content-between">
-                        <button type="button" [routerLink]="['/producto', product.id]"
+                        <button type="button" [routerLink]="['/tienda/producto', product.id]"
                             [title]="'Detalles de ' + product.product_name "
                             class="btn btn-sm btn-nt-brand d-flex align-items-center">
                             <span class="fw-semibold">ver más</span></button>
@@ -25,6 +26,7 @@
                 </div>
             </div>
         </div>
+    </ng-container>
     </div>
     <ng-template #noProducts>
         <ng-container *ngIf="isReady">

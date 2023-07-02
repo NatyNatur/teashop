@@ -43,19 +43,30 @@ export class ProductsComponent {
 
   async onSubmitNewProduct(productForm: NgForm) {
     //console.log(productForm.value)
-    if (productForm.invalid) { return; }
+    if (productForm.invalid) {
+      if (productForm.submitted) {
+        this.showFormErrors(productForm);
+      }
+      return;
+    }
     else {
       this._loader.loaderOn();
       this._products.createProduct(this.newProduct, this.selectedFile).then(() => {
         this.addProductModal?.hide();
         productForm.resetForm();
-        //console.log('en el then')
-      }).finally(()=> {
-        //console.log('terminó de subir?')
-        this.selectedFile = undefined;
         this._loader.loaderOff();
+      }).finally(()=> {
+        this.selectedFile = undefined;
       });
     }
+  }
+
+  showFormErrors(productForm: NgForm) {
+    Object.keys(productForm.controls).forEach((controlName) => {
+      const control = productForm.controls[controlName];
+      control.markAsDirty();
+      control.markAsTouched();
+    });
   }
 
   onFileSelected(event: any) {
@@ -75,17 +86,20 @@ export class ProductsComponent {
   getProducts() {
     this._loader.loaderOn();
     this._products.getProductsObs().subscribe(products => {
-      //console.log('subs', products);
       this.productsList = products;
       this._loader.loaderOff();
     })
   }
 
   showEditProductModal(product: Product, product_id : string)  {
+    const textareaValue = product.product_description.replace(/<br>/g, '\n');
     this.activateEditSubcategorySelect(product.product_category).then(()=> {
-      this.editProductModal?.show();
+      setTimeout(() => {
+        this.editProductModal?.show();
+      }, 200)
     });
     this.product = product;
+    this.product.product_description = textareaValue;
     this.productId = product_id;
   }
 
@@ -93,11 +107,13 @@ export class ProductsComponent {
     if (editProductForm.invalid) { return; }
     else {
       //console.log(this.selectedFile);
+      this._loader.loaderOn();
       this._products.updateProduct(this.productId, this.product, this.selectedFile).then(()=> {
         this.editProductModal?.hide();
         this.selectedFile = undefined;
         let fileInput = document.getElementById('ntEditProductImage') as any;
         fileInput.value = '';
+        this._loader.loaderOff();
       });
       //this.getProducts();
       //this.resetProductForm(editProductForm);
@@ -142,14 +158,12 @@ export class ProductsComponent {
   }
 
   async activateEditSubcategorySelect(value: string) {
-    console.log(value)
     const categoriaSeleccionada = this.categoriesList.find(categoria => categoria.category_id === value);
 
     if (categoriaSeleccionada) {
       // Filtrar las subcategorías de la categoría seleccionada
       this.subcategoriesList = categoriaSeleccionada.subcategories.filter((subcategoria:any) => subcategoria.subcategory_status === 'active');
     }
-    console.log(this.subcategoriesList);
     
     const selectSubcategorias = document.getElementById('ntEditProductSubcategory') as HTMLSelectElement;
     selectSubcategorias.disabled = true;

@@ -37,6 +37,28 @@ export class OrdersService {
         userData: orderInfo['userData'],
         created_at: currentTimestamp,
       })
+
+      // Descontar el stock de cada producto en el pedido
+      for (const product of orderInfo.productos) {
+        if (product.id) {
+          const productDocRef = doc(this.firestore, 'products', product.id);
+          const productDocSnap = await getDoc(productDocRef);
+          const productDocData = productDocSnap.data();
+
+          if (productDocData) {
+            const currentStock = productDocData['product_stock'];
+            const updatedStock = currentStock - product.quantity;
+
+            if (updatedStock >= 0) {
+              await updateDoc(productDocRef, { product_stock: updatedStock });
+            } else {
+              // Manejar el caso en que el stock resultante sea negativo
+              this._toastr.error(`El producto ${product.product_name} no tiene suficiente stock.`);
+            }
+          }
+        }
+      }
+
       this._toastr.success('Pedido creado correctamente', 'Listo');
       return true;
     }

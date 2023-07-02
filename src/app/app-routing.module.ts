@@ -10,15 +10,18 @@ import { GeneralComponent } from './pages/admin/general/general.component';
 import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { ProductDetailComponent } from './pages/shop/product-detail/product-detail.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
-import { CategoryComponent } from './pages/category/category.component';
+import { CategoryComponent } from './pages/shop/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.component';
 import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-codes.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { AllProductsComponent } from './pages/shop/all-products/all-products.component';
+import { CheckoutGuard } from './guards/checkout.guard';
 
 const routes: Routes = [
   {
@@ -99,14 +102,31 @@ const routes: Routes = [
     },
   },
   {
-    path: 'producto/:productId',
-    title: 'Producto | naturtea',
-    component: ProductDetailComponent
-  },
-  {
-    path: 'categoria',
-    title: 'Categoría',
-    component: CategoryComponent,
+    path: 'tienda',
+    title: 'Tienda | naturtea',
+    component: ShopComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'todos',
+        pathMatch: 'full'
+      },
+      {
+        path: 'todos',
+        title: 'Todos | naturtea',
+        component: AllProductsComponent
+      },
+      {
+        path: 'producto/:productId',
+        title: 'Producto | naturtea',
+        component: ProductDetailComponent
+      },
+      {
+        path: 'categoria',
+        title: 'Categoría',
+        component: CategoryComponent,
+      },
+    ],
   },
   {
     path: 'carrito',
@@ -116,7 +136,8 @@ const routes: Routes = [
   {
     path: 'checkout',
     title: 'Checkout | naturtea',
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    canActivate: [CheckoutGuard, AuthGuard]
   },
   {
     path: '404',

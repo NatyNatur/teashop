@@ -51,6 +51,11 @@
                                             <button class="btn btn-nt-secondary" (click)="increaseProduct(product)"><i
                                                     class="bi bi-plus-lg"></i></button>
                                         </div>
+                                        <div class="alertContainer" #alertContainers>
+                                            <span *ngIf="product.quantity > product.product_stock"
+                                                class="text-danger animate__animated animate__fadeIn">Excedes el
+                                                stock.</span>
+                                        </div>
                                     </td>
                                     <td class="text-end">${{ product.product_price*product.quantity | thousands}}</td>
                                 </tr>

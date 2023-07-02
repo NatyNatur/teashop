@@ -1,43 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Product, ProductInCart } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
-  selector: 'app-featured-products',
-  templateUrl: './featured-products.component.html',
-  styleUrls: ['./featured-products.component.css']
+  selector: 'app-all-products',
+  templateUrl: './all-products.component.html',
+  styleUrls: ['./all-products.component.css']
 })
-export class FeaturedProductsComponent implements OnInit {
+export class AllProductsComponent {
+  productsList: Product[] = [];
+  isReady: boolean = false;
 
-  featuredProductsList: Product[] = [];
-
-  constructor(private _products: ProductsService, 
-    private _cart: CartService, 
+  constructor(private _loader: LoaderService,
+    private _products: ProductsService,
+    private _cart: CartService,
     private _toastr: ToastrService,
     private _router: Router) {
-
+    this.getProducts();
   }
-
-  ngOnInit(): void {
-    this.getFeaturedProducts();
-  }
-
-  getFeaturedProducts() {
-    this.featuredProductsList = this._products.getFtProductsList();
-
-    if (this.featuredProductsList.length === 0) {
-      // this._products.getFeaturedProducts().then((res: any) => {
-      //   this.featuredProductsList = res;
-      // });
-      this._products.getFeaturedProductsObs().subscribe(products => {
-        this.featuredProductsList = products;
-      })
-    }
-
+  
+  getProducts() {
+    this._loader.loaderOn();
+    this._products.getProductsObs().subscribe(products => {
+      this.productsList = products;
+      this._loader.loaderOff();
+      this.isReady = true;
+    })
   }
 
   addToCart(product: Product) {

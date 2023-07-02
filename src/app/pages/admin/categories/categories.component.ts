@@ -56,18 +56,11 @@ export class CategoriesComponent implements OnInit {
     // })
     this.categories.readSubcategories().then((res: any) => {
       this.categoriesList = res;
-      //console.log('subcategoriesList', this.categoriesList);
       this._loader.loaderOff();
     }).catch((error) => {
       console.error('Error al leer los datos:', error);
       this._loader.loaderOff();
     });
-  }
-
-  getAllCategoriesObs() {
-    this.categories.readAllSubcategories().subscribe((allCats: Category[]) => {
-      this._loader.loaderOff();
-    })
   }
 
   showDeleteCategoryModal(name: string, id: string) {

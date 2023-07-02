@@ -31,7 +31,6 @@ export class UserOrdersComponent implements OnInit {
   getUserOrders() {
     this._loader.loaderOn();
     this._orders.getUserOrders(this.userId).then((res) => {
-      console.log('async', res);
       this.ordersList = res;
       this.isDone = true;
       this._loader.loaderOff();
@@ -62,7 +61,6 @@ export class UserOrdersComponent implements OnInit {
     const orderTimestamp = order.toDate(); // Convertir la marca de tiempo a un objeto Date
     const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const formattedDate = orderTimestamp.toLocaleDateString("es-ES", options);
-    console.log(formattedDate);
     return formattedDate
   }
   

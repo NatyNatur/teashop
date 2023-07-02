@@ -1,0 +1,7 @@
+.shopSidebar {
+    background-color: #e8f2fe;
+}
+
+.shopSidebar .nav-link {
+    color: var(--nt-darkblue)
+}

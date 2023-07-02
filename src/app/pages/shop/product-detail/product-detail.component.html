@@ -1,0 +1,45 @@
+<section>
+    <div class="row pt-3 p-lg-5 productDetailRow" *ngIf="isReady && product">
+        <div class="col-12 col-md-6 text-center">
+            <img alt="producto" class="img-fluid" src="{{product.product_imageUrl}}">
+        </div>
+        <div class="col-12 col-md-6">
+            <h3 class="fc-lightblue fw-semibold mb-3">{{product.product_name}}</h3>
+            <h4 class="fc-brand fw-semibold mb-5">$ {{product.product_price | thousands}} </h4>
+            <div class="ff-vollkorn">
+                <p [innerHTML]="product.product_description"></p>
+            </div>
+            <div class="row" *ngIf="product.product_stock > 0; else noStock">
+                <div class="col-8 col-lg-6 col-xl-4">
+                    <div class="input-group">
+                        <button class="btn btn-nt-secondary" (click)="decreaseProduct()"><i
+                                class="bi bi-dash-lg"></i></button>
+                        <input type="number" [(ngModel)]="productQuantity" disabled class="form-control text-center"
+                            aria-label="Cantidad">
+                        <button class="btn btn-nt-secondary" (click)="increaseProduct()"><i
+                                class="bi bi-plus-lg"></i></button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <span class="quantityMessageContainer d-block">
+                        <span *ngIf="productQuantity === productStock"
+                            class="text-danger animate__animated animate__fadeIn">No tenemos más stock de este
+                            producto.</span>
+                    </span>
+                </div>
+                <div class="col-12 mb-5">
+                    <button class="btn btn-nt-brand w-100" (click)="addToCart(product, productQuantity)">Agregar al
+                        carrito</button>
+                </div>
+            </div>
+            <ng-template #noStock>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-danger animate__animated animate__fadeIn">No tenemos stock por el
+                            momento.</span>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</section>

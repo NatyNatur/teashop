@@ -37,16 +37,18 @@ import { CategoriesComponent } from './pages/admin/categories/categories.compone
 import { GeneralComponent } from './pages/admin/general/general.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { FeaturedProductsComponent } from './pages/featured-products/featured-products.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { ProductDetailComponent } from './pages/shop/product-detail/product-detail.component';
 import { MiniLoaderComponent } from './components/mini-loader/mini-loader.component';
 import { ThousandsPipe } from './pipes/thousands.pipe';
 import { CartComponent } from './pages/cart/cart.component';
 import { UnderConstructionComponent } from './pages/under-construction/under-construction.component';
-import { CategoryComponent } from './pages/category/category.component';
+import { CategoryComponent } from './pages/shop/category/category.component';
 import { UserInformationComponent } from './pages/welcome/user-information/user-information.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.component';
 import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-codes.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { AllProductsComponent } from './pages/shop/all-products/all-products.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-co
     CheckoutComponent,
     UserOrdersComponent,
     DiscountCodesComponent,
+    ShopComponent,
+    AllProductsComponent,
   ],
   imports: [
     BrowserModule,

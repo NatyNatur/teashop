@@ -209,12 +209,18 @@ export class CheckoutComponent {
     this._loader.loaderOn();
     this._orders.createOrder(this.preOrder).then(() => {
       this.isOrderDone = true;
+      this.cleanCart();
       this._loader.loaderOff();
     },
     ).catch((error) => {
       console.log(error);
       this._loader.loaderOff();
     })
+  }
+
+  cleanCart() {
+    localStorage.removeItem('datosCarrito');
+    localStorage.removeItem('carrito');
   }
 
   convertShippingOption(shipping: string) {

@@ -27,7 +27,6 @@ export class SignupComponent {
   }
 
   async onSubmitSignUp(form: NgForm) {
-    console.log(form);
     if (form.invalid) { return; }
     this._loader.loaderOn();
     const user = await this._authService.signUp(this.user);
@@ -42,9 +41,9 @@ export class SignupComponent {
     }
     this._loader.loaderOff();
   }
+  
   onChangeRegion(event: any) {
     const regionName = event.target.value;
-    console.log(regionName)
     const region = this.regions.find(region => region.region === regionName);
     this.communes = region ? [...region.comunas] : [];
   }
