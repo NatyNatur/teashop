@@ -19,7 +19,12 @@
                     <span class="messageContainer">
                         <span *ngIf="loginForm.submitted && loginForm.controls['password'].errors"
                             class="text-danger animate__animated animate__fadeIn">Recuerda que la contraseña debe ser de
-                            más de 6 caracteres.</span>
+                            más de 6 caracteres.
+                        </span>
+                        <p class="text-end mb-0 fc-lightblue">
+                            <a type="button" (click)="showModalForgot();"
+                                class="text-decoration-none text-reset">¿Olvidaste tu contraseña?</a>
+                        </p>
                     </span>
                 </div>
                 <div class="mb-3 form-check col-12 col-md-6">
@@ -33,6 +38,35 @@
                 <h5 class="text-center">¿Eres nuevo en la tienda?
                     <a routerLink="/registro" class="text-decoration-none fc-brand fw-bold">Regístrate</a>
                 </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #forgotFormModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="row pt-3" #forgotForm="ngForm" (ngSubmit)="onSubmitForgotForm(forgotForm);"
+                    id="forgotForm">
+                    <label for="ntForgotFormEmail" class="form-label">Ingresa tu email registrado y te enviaremos un
+                        correo para restablecer tu contraseña:</label>
+                    <div class="col-12">
+                        <input type="text" [(ngModel)]="formForgotEmail" name="formForgotEmail" class="form-control"
+                            id="ntForgotFormEmail" placeholder="correo@dominio.com" required email>
+                        <span class="messageContainer">
+                            <span *ngIf="forgotForm.submitted && forgotForm.controls['formForgotEmail'].errors"
+                                class="text-danger animate__animated animate__fadeIn">Debes ingresar tu
+                                correo.</span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-nt-secondary" (click)="forgotFormModal.hide()">Cancelar</button>
+                <button type="submit" class="btn btn-nt-primary" form="forgotForm">enviar correo</button>
             </div>
         </div>
     </div>

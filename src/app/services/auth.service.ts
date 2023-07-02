@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, User, UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, User, UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { docData, doc, Firestore, setDoc, updateDoc, deleteDoc, getDoc, } from '@angular/fire/firestore';
 
 import { RegisteredUser } from '../models/registered-user.model';
@@ -258,6 +259,15 @@ export class AuthService {
     const user = this._auth.currentUser;
     //console.log(user);
     return user;
+  }
+
+  async sendPasswordResetEmail(email: string) {
+    try {
+      await sendPasswordResetEmail(this._auth, email );
+      this._toastr.success('Se ha enviado un correo de restablecimiento de contraseña.', 'Listo');
+    } catch (error: any) {
+      this._toastr.error(this.firebaseErrors(error.code), 'Error');
+    }
   }
 
 

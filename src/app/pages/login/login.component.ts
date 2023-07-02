@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { RegisteredUser } from 'src/app/models/registered-user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -14,6 +15,9 @@ export class LoginComponent {
 
   registeredUser: RegisteredUser = new RegisteredUser();
   rememberUser: boolean = false;
+  formForgotEmail: string = '';
+  @ViewChild('forgotForm') forgotForm!: NgForm;
+  @ViewChild('forgotFormModal') forgotFormModal?: ModalDirective;
 
   constructor(private _router: Router, 
     private _authService: AuthService, private _loaderService: LoaderService) {
@@ -33,5 +37,25 @@ export class LoginComponent {
       this._router.navigateByUrl('/cliente');
     }
     this._loaderService.loaderOff();
+  }
+
+  showModalForgot() {
+    this.forgotFormModal?.show();
+  }
+
+  onSubmitForgotForm(form: NgForm) {
+    if (form.invalid) { return; }
+    else {
+      this.sendReset(this.formForgotEmail);
+      form.resetForm();
+    }
+  }
+
+  sendReset(email: string) {
+    this._loaderService.loaderOn();
+    this._authService.sendPasswordResetEmail(email).finally(()=> {
+      this._loaderService.loaderOff();
+      this.forgotFormModal?.hide();
+    });
   }
 }
