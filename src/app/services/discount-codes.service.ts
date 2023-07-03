@@ -23,7 +23,7 @@ export class DiscountCodesService {
         const cuponData = cuponDoc.data();
         const cuponId = cuponDoc.id;
   
-        if (cuponData['vigente']) {
+        if (cuponData['vigente'] === 'Sí') {
           // El cupón está vigente, retornar información del cupón
           this._toastr.success('Código aplicado');
           return { id: cuponId, ...cuponData };

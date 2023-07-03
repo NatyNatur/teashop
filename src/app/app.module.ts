@@ -49,6 +49,7 @@ import { UserOrdersComponent } from './pages/welcome/user-orders/user-orders.com
 import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-codes.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { AllProductsComponent } from './pages/shop/all-products/all-products.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { AllProductsComponent } from './pages/shop/all-products/all-products.com
     DiscountCodesComponent,
     ShopComponent,
     AllProductsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

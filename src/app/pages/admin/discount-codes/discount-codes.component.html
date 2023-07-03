@@ -118,7 +118,7 @@
                         <input type="text" formControlName="nombre" class="form-control" id="ntEditCode"
                             placeholder="invierno">
                         <span class="messageContainer">
-                            <span *ngIf="(newName?.dirty || newName?.touched) && newName?.errors"
+                            <span *ngIf="(editName?.dirty || editName?.touched) && editName?.errors"
                                 class="text-danger animate__animated animate__fadeIn">Debes ingresar un nombre.</span>
                         </span>
                     </div>
@@ -127,7 +127,7 @@
                         <input type="number" formControlName="monto" class="form-control" id="ntEditCodeAmount"
                             placeholder="20">
                         <span class="messageContainer">
-                            <span *ngIf="(newAmount?.dirty || newAmount?.touched) && newAmount?.errors"
+                            <span *ngIf="(editAmount?.dirty || editAmount?.touched) && editAmount?.errors"
                                 class="text-danger animate__animated animate__fadeIn">Entre 1 y 100.</span>
                         </span>
                     </div>

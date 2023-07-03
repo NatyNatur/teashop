@@ -33,12 +33,12 @@
                                 <ng-container *ngIf="cat.category_status === 'active'">
                                     <li class="nav-item">
                                         <a class="nav-link fw-semibold" routerLinkActive="active"
-                                            [routerLink]="['/tienda/categoria']"
+                                            [routerLink]="['/catalogo/categoria']"
                                             [queryParams]="{id: cat.category_id, name: cat.category_name}">{{cat.category_name}}</a>
                                         <ul class="nav flex-column">
                                             <ng-container *ngFor="let subcategory of cat.subcategories; let j = index;">
                                             <li class="nav-item ps-3" *ngIf="subcategory.subcategory_status === 'active'">
-                                                <a class="nav-link" [routerLink]="['/tienda/categoria']"
+                                                <a class="nav-link" [routerLink]="['/catalogo/categoria']"
                                                     [queryParams]="{id: subcategory.subcategory_id, name: subcategory.subcategory_name}"
                                                     (click)="getScreenWidth < 992 ? offCanvasShopIsCollapsed = true : offCanvasShopIsCollapsed = false">
                                                     {{subcategory.subcategory_name}}</a>

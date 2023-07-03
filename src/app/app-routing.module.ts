@@ -22,6 +22,7 @@ import { DiscountCodesComponent } from './pages/admin/discount-codes/discount-co
 import { ShopComponent } from './pages/shop/shop.component';
 import { AllProductsComponent } from './pages/shop/all-products/all-products.component';
 import { CheckoutGuard } from './guards/checkout.guard';
+import { ContactComponent } from './pages/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -102,8 +103,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'tienda',
-    title: 'Tienda | naturtea',
+    path: 'catalogo',
+    title: 'Catálogo | naturtea',
     component: ShopComponent,
     children: [
       {
@@ -132,6 +133,11 @@ const routes: Routes = [
     path: 'carrito',
     title: 'Carrito | naturtea',
     component: CartComponent
+  },
+  {
+    path: 'contacto',
+    title: 'Contacto | naturtea',
+    component: ContactComponent
   },
   {
     path: 'checkout',

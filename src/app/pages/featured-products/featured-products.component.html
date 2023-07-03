@@ -7,7 +7,7 @@
         <ng-container *ngFor="let product of featuredProductsList; let i = index">
             <div class="col-12 col-md-4 col-lg-3 text-center mb-3" *ngIf="product.product_status === 'active'">
                 <div class="card h-100" id="producto{{i + 1}}">
-                    <a [routerLink]="['/tienda/producto', product.id]"><img src="{{product.product_imageUrl}}"
+                    <a [routerLink]="['/catalogo/producto', product.id]"><img src="{{product.product_imageUrl}}"
                             class="card-img-top" alt="{{product.product_name}}"></a>
                     <div class="card-body p-1 pt-3">
                         <h5 class="card-title">{{product.product_name}}</h5>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-footer bg-white border-top-0 pb-3">
                         <div class="d-flex justify-content-between">
-                            <button type="button" [routerLink]="['/tienda/producto', product.id]"
+                            <button type="button" [routerLink]="['/catalogo/producto', product.id]"
                                 [title]="'Detalles de ' + product.product_name " [state]="{ product_id: product.id}"
                                 class="btn btn-sm btn-nt-brand d-flex align-items-center">
                                 <span class="fw-semibold">ver más</span></button>
