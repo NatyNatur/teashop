@@ -24,7 +24,7 @@
                 <div class="col-12 col-lg-6">
                     <label for="ntSignupEmail" class="form-label">Correo electrónico </label>
                     <input type="email" [(ngModel)]="user.email" name="email" required email class="form-control"
-                        id="ntSignupEmail" placeholder="juanitapc@lala.com">
+                        id="ntSignupEmail" placeholder="correo@dominio.com">
                     <span class="messageContainer">
                         <span *ngIf="signUpForm.submitted && signUpForm.controls['email'].errors"
                             class="text-danger animate__animated animate__fadeIn">El correo es obligatorio.</span>

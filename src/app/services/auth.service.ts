@@ -29,6 +29,7 @@ export class AuthService {
     localStorage.removeItem('rolInterno');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userData');
+    this.userData = '';
     localStorage.removeItem('userId');
     return signOut(this._auth);
   }

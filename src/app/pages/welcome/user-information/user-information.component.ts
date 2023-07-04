@@ -37,7 +37,7 @@ export class UserInformationComponent implements OnInit {
 
   private async loadUserData(): Promise<void> {
     const item = await this._ls.waitForItemInLocalStorage('userData');
-    //const userDataString = localStorage.getItem('userData');
+    // const userDataString = localStorage.getItem('userData');
     if (item) {
       this.userData = JSON.parse(item);
       this.isDone = true;

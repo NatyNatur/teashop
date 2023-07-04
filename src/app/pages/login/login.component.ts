@@ -19,24 +19,30 @@ export class LoginComponent {
   @ViewChild('forgotForm') forgotForm!: NgForm;
   @ViewChild('forgotFormModal') forgotFormModal?: ModalDirective;
 
-  constructor(private _router: Router, 
+  constructor(private _router: Router,
     private _authService: AuthService, private _loaderService: LoaderService) {
-      if (localStorage.getItem('email')) {
-        this.registeredUser.email = localStorage.getItem('email')!;
-        this.rememberUser = true;
-      }
+    if (localStorage.getItem('email')) {
+      this.registeredUser.email = localStorage.getItem('email')!;
+      this.rememberUser = true;
+    }
   }
 
   async onSubmitLogin(form: NgForm) {
-    if (form.invalid) { return; }
+    if (form.invalid) {
+      return;
+    }
+    this.checkItemLs();
     this._loaderService.loaderOn();
+
     const user = await this._authService.login(this.registeredUser);
     if (user) {
       localStorage.setItem('email', this.registeredUser.email);
       // guard redirige si usuario no es admin
-      this._router.navigateByUrl('/cliente');
+      setTimeout(() => {
+        this._router.navigateByUrl('/cliente');
+      }, 200);
+      this._loaderService.loaderOff();
     }
-    this._loaderService.loaderOff();
   }
 
   showModalForgot() {
@@ -53,9 +59,15 @@ export class LoginComponent {
 
   sendReset(email: string) {
     this._loaderService.loaderOn();
-    this._authService.sendPasswordResetEmail(email).finally(()=> {
+    this._authService.sendPasswordResetEmail(email).finally(() => {
       this._loaderService.loaderOff();
       this.forgotFormModal?.hide();
     });
+  }
+
+  checkItemLs() {
+    if (localStorage.getItem('userData') != null) {
+      localStorage.removeItem('userData');
+    }
   }
 }

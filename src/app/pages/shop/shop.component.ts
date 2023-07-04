@@ -22,13 +22,11 @@ export class ShopComponent implements OnInit {
   getAllCategoriesObs() {
     this._categories.readAllOrderedSubcategories().subscribe((allCats: Category[]) => {
       this.cateList = allCats
-      console.log(allCats)
     })
   }
 
   getCategoriesListFromSv() {
     this.cateList = this._categories.getCategoriesList();
-    console.log(this.cateList);
     if (this.cateList.length === 0) {
       this.getAllCategoriesObs();
     }

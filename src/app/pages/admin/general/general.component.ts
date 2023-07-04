@@ -29,7 +29,7 @@ export class GeneralComponent implements OnInit {
 
   callUserCount() {
     this._analytics.obtainUserCount().subscribe((count: number) => {
-      console.log('Número de usuarios:', count);
+      //console.log('Número de usuarios:', count);
       this.userCount = count;
       this.userCountIsDone = true;
     });
@@ -37,7 +37,7 @@ export class GeneralComponent implements OnInit {
 
   callProductsCount() {
     this._analytics.obtainProductsCount().subscribe((count: number) => {
-      console.log('Número de productos:', count);
+      //console.log('Número de productos:', count);
       this.productsCount = count;
       this.productsCountIsDone = true;
     });
@@ -45,7 +45,7 @@ export class GeneralComponent implements OnInit {
 
   callNewOrders() {
     this._analytics.obtainNewOrders().subscribe((count: number) => {
-      console.log('Número de productos:', count);
+      //console.log('Número de pedidos:', count);
       this.newOrdersCount = count;
       this.newOrdersCountIsDone = true;
     });
@@ -54,7 +54,7 @@ export class GeneralComponent implements OnInit {
   
   callDiscountCodes() {
     this._analytics.obtainDiscountCodes().subscribe((count: number) => {
-      console.log('Número de cupones:', count);
+      //console.log('Número de cupones:', count);
       this.discountCodesCount = count;
       this.discountCodesCountIsDone = true;
     });

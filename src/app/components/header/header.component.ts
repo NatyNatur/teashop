@@ -64,7 +64,7 @@ export class HeaderComponent {
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
 
-  prueba() {
+  checkAuth() {
     const isAuthenticated = this._auth.isAuthenticated();
     if (isAuthenticated) {
       this._router.navigate(['/cliente']);

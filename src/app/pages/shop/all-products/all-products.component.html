@@ -5,7 +5,7 @@
     </div>
     <div class="row p-md-3 productsRow" *ngIf="productsList.length >= 1; else noProducts">
         <ng-container *ngFor="let product of productsList; let i = index">
-            <div class="col-12 col-md-4 col-lg-3 text-center mb-3" *ngIf="product.product_status === 'active'">
+            <div class="col-12 col-md-4 col-lg-4 text-center mb-3" *ngIf="product.product_status === 'active'">
                 <div class="card h-100" id="producto{{i + 1}}">
                     <img src="{{product.product_imageUrl}}" class="card-img-top" alt="{{product.product_name}}">
                     <div class="card-body p-1 pt-3">

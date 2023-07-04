@@ -29,10 +29,12 @@ export class AuthGuard {
     if (this._auth.isAuthenticated()) {
       const userRole = this._auth.getRole();
       if (route.data['role'] && route.data['role'].indexOf(userRole) === -1) {
-        this._router.navigate(['/cliente']);
+
         return false;
       }
       return true;
+    } else {
+      this._auth.logout();
     }
 
     this._router.navigate(['/']);

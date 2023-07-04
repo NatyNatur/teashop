@@ -107,7 +107,6 @@ export class OrdersService {
       const orders: Order[] = [];
 
       querySnapshot.forEach((doc) => {
-        console.log(doc)
         const orderData = doc.data() as Order;
         orders.push(orderData);
       });

@@ -10,7 +10,7 @@
                 <p [innerHTML]="product.product_description"></p>
             </div>
             <div class="row" *ngIf="product.product_stock > 0; else noStock">
-                <div class="col-8 col-lg-6 col-xl-4">
+                <div class="col-8 col-lg-6 col-xl-6">
                     <div class="input-group">
                         <button class="btn btn-nt-secondary" (click)="decreaseProduct()"><i
                                 class="bi bi-dash-lg"></i></button>
